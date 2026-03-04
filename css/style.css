@@ -113,6 +113,11 @@ img {
   padding: 12px;
 }
 
+.navbar-logos img:last-child {
+  height: 72px;
+  padding: 12px;
+}
+
 .navbar-brand-text span {
   color: #c83c2d;
   font-weight: 700;
@@ -1476,6 +1481,11 @@ img {
     padding: 11px;
   }
 
+  .navbar-logos img:last-child {
+    height: 68px;
+    padding: 11px;
+  }
+
 
   /* Hero */
   .hero {
@@ -1729,6 +1739,11 @@ img {
     padding: 12px;
   }
 
+  .navbar-logos img:last-child {
+    height: 72px;
+    padding: 12px;
+  }
+
 
   .navbar-brand-text {
     font-size: 0.85rem;
@@ -1818,6 +1833,11 @@ img {
 
   .navbar-logos img {
     height: 36px;
+    padding: 7px;
+  }
+
+  .navbar-logos img:last-child {
+    height: 44px;
     padding: 7px;
   }
 
