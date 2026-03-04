@@ -1731,7 +1731,6 @@ img {
 
   .navbar-logos {
     gap: 0.25rem;
-    align-items: flex-start;
   }
 
   .navbar-logos img {
