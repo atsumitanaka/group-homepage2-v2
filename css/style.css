@@ -1368,7 +1368,7 @@ img {
 .footer-logos {
   display: flex;
   gap: 1rem;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .footer-logos img {
