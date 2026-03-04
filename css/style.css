@@ -1638,6 +1638,7 @@ img {
   .top-member-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 0.3rem;
+    margin-bottom: 0.3rem;
   }
 
   .top-member-leader {
