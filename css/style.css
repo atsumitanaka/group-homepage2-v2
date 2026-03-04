@@ -1748,6 +1748,7 @@ img {
   .navbar-brand-text {
     font-size: 0.85rem;
     margin-left: 12px;
+    margin-top: -0.3rem;
   }
 
   .nav-links {
