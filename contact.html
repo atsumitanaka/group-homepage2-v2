@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Materials Modeling Group</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand">
+        <div class="navbar-logos">
+          <img src="images/logo_nims_20190425mark.png" alt="NIMS">
+          <img src="images/cbrm_logo.png" alt="CBRM">
+        </div>
+        <span class="navbar-brand-text"><span>M</span>aterials <span>M</span>odeling <span>G</span>roup</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="news.html">News</a>
+        <a href="members.html">Members</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+      <button class="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>Contact</h1>
+        <p>ご質問・ご相談がございましたら、下記フォームよりお気軽にお問い合わせください。</p>
+      </div>
+
+      <div class="contact-form fade-in-up">
+        <div class="form-card" id="form-container">
+          <form id="contact-form" onsubmit="return handleSubmit(event)">
+            <div class="form-group">
+              <label for="name">お名前 *</label>
+              <input type="text" id="name" name="name" required>
+              <p class="error-message hidden" id="name-error">お名前を入力してください</p>
+            </div>
+
+            <div class="form-group">
+              <label for="email">メールアドレス *</label>
+              <input type="email" id="email" name="email" required>
+              <p class="error-message hidden" id="email-error">有効なメールアドレスを入力してください</p>
+            </div>
+
+            <div class="form-group">
+              <label for="subject">件名 *</label>
+              <input type="text" id="subject" name="subject" required>
+              <p class="error-message hidden" id="subject-error">件名を入力してください</p>
+            </div>
+
+            <div class="form-group">
+              <label for="message">お問い合わせ内容 *</label>
+              <textarea id="message" name="message" rows="6" required></textarea>
+              <p class="error-message hidden" id="message-error">お問い合わせ内容を10文字以上で入力してください</p>
+            </div>
+
+            <button type="submit" class="btn-primary">送信する</button>
+          </form>
+        </div>
+
+        <div class="form-card success-message hidden" id="success-container">
+          <h2>お問い合わせありがとうございます</h2>
+          <p>内容を確認の上、担当者よりご連絡いたします。</p>
+          <button class="btn-primary" onclick="resetForm()">新しいお問い合わせ</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="footer-wave">
+    <svg viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,40 C360,220 720,0 1080,190 C1260,220 1380,40 1440,90 L1440,220 L0,220 Z"/>
+    </svg>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-content">
+        <div class="footer-access">
+          <p class="footer-access-title">Access</p>
+          <p>国立研究開発法人物質・材料研究機構</p>
+          <p>マテリアル基盤研究センター</p>
+          <p>材料モデリンググループ</p>
+          <p>〒305-0044 茨城県つくば市並木1-1</p>
+        </div>
+        <div class="footer-logos">
+          <img src="images/logo_nims_ja_en.png" alt="NIMS">
+          <img src="images/cbrm_logo.png" alt="CBRM">
+        </div>
+      </div>
+      <p class="footer-copy">&copy; 2026 Materials Modeling Group. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/contact.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
