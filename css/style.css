@@ -1636,29 +1636,36 @@ img {
 @media (max-width: 480px) {
   .top-member-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
+    gap: 0.3rem;
+  }
+
+  .top-member-leader {
+    margin-bottom: 0.3rem;
   }
 
   .top-member-leader .top-member-card {
-    width: calc(100% / 3 - 0.34rem);
+    width: calc(100% / 3 - 0.2rem);
   }
 
   .top-member-card {
-    padding: 1rem 0.5rem 0.75rem;
+    padding: 0.5rem 0.3rem 0.4rem;
   }
 
   .top-member-photo {
-    width: 60px;
-    height: 80px;
+    width: 50px;
+    height: 65px;
+    margin-bottom: 0.3rem;
   }
 
   .top-member-name {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     white-space: nowrap;
+    margin-bottom: 0.1rem;
   }
 
   .top-member-title {
-    font-size: 0.55rem;
+    font-size: 0.5rem;
+    margin-bottom: 0.15rem;
   }
 
   .top-member-email {
@@ -1666,18 +1673,19 @@ img {
   }
 
   .top-member-research {
-    font-size: 0.55rem;
-    line-height: 1.4;
+    font-size: 0.5rem;
+    line-height: 1.3;
+    margin-bottom: 0.2rem;
   }
 
   .personal-page-btn {
-    font-size: 0.55rem;
-    padding: 0.2rem 0.6rem;
+    font-size: 0.45rem;
+    padding: 0.1rem 0.4rem;
   }
 
   .top-member-buttons {
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.15rem;
   }
 
   .intro-keywords {
