@@ -114,8 +114,8 @@ img {
 }
 
 .navbar-logos img:last-child {
-  height: 78px;
-  padding: 12px;
+  height: 45px;
+  padding: 8px;
 }
 
 .navbar-brand-text span {
@@ -1482,8 +1482,8 @@ img {
   }
 
   .navbar-logos img:last-child {
-    height: 72px;
-    padding: 11px;
+    height: 42px;
+    padding: 8px;
   }
 
   /* Hero */
@@ -1739,8 +1739,8 @@ img {
   }
 
   .navbar-logos img:last-child {
-    height: 78px;
-    padding: 12px;
+    height: 45px;
+    padding: 8px;
   }
 
   .navbar-brand-text {
@@ -1835,8 +1835,8 @@ img {
   }
 
   .navbar-logos img:last-child {
-    height: 46px;
-    padding: 7px;
+    height: 28px;
+    padding: 5px;
   }
 
   .navbar-brand-text {
