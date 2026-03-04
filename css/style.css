@@ -102,7 +102,7 @@ img {
 
 .navbar-logos {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.5rem;
 }
 
@@ -1731,6 +1731,7 @@ img {
 
   .navbar-logos {
     gap: 0.25rem;
+    align-items: flex-start;
   }
 
   .navbar-logos img {
