@@ -103,7 +103,7 @@ img {
 .navbar-logos {
   display: flex;
   align-items: center;
-  gap: 0.15rem;
+  gap: 0;
 }
 
 .navbar-logos img {
@@ -1730,7 +1730,7 @@ img {
   }
 
   .navbar-logos {
-    gap: 0.1rem;
+    gap: 0;
   }
 
   .navbar-logos img {
@@ -1826,7 +1826,7 @@ img {
   }
 
   .navbar-logos {
-    gap: 0.1rem;
+    gap: 0;
   }
 
   .navbar-logos img {
