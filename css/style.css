@@ -1375,8 +1375,10 @@ img {
   height: 60px;
   width: auto;
   transition: opacity 0.3s ease;
-  /* NIMS logo guideline: 保護エリア = 短辺(height) x 20% = 12px min */
-  padding: 12px;
+}
+
+.footer-logos img:last-child {
+  height: 72px;
 }
 
 .footer-logos img:hover {
