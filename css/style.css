@@ -922,7 +922,7 @@ img {
   color: #333;
   font-size: 0.78rem;
   font-weight: 500;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.1rem;
 }
 
 .member-info .keywords {
@@ -937,6 +937,7 @@ img {
   color: #888;
   font-weight: 400;
   margin-bottom: 0.3rem;
+  line-height: 1.4;
 }
 
 .member-additional-roles:empty {
