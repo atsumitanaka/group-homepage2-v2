@@ -1623,6 +1623,7 @@ img {
     padding: 0.3rem;
     align-items: center;
     text-align: center;
+    overflow: hidden;
   }
 
   .member-photo {
@@ -1634,6 +1635,9 @@ img {
     font-size: 0.55rem;
     line-height: 1.2;
     margin-bottom: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
   }
 
   .member-title-label {
@@ -1656,14 +1660,17 @@ img {
   .member-info .researchmap-btn {
     font-size: 0.45rem;
     padding: 0.1rem 0.4rem;
-    margin-bottom: 0.1rem;
-    margin-right: 0.1rem;
+    margin-bottom: 0;
+    margin-right: 0;
   }
 
   .member-buttons {
     align-self: center;
     margin-top: 0.2rem;
     padding-top: 0.1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.2rem;
   }
 
   .member-additional-roles {
@@ -1742,24 +1749,24 @@ img {
   }
 
   .top-member-card {
-    padding: 0.5rem 0.3rem 0.4rem;
+    padding: 0.3rem 0.2rem 0.3rem;
   }
 
   .top-member-photo {
     width: 50px;
     height: 65px;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.15rem;
   }
 
   .top-member-name {
     font-size: 0.6rem;
     white-space: nowrap;
-    margin-bottom: 0.1rem;
+    margin-bottom: 0;
   }
 
   .top-member-title {
     font-size: 0.5rem;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.1rem;
   }
 
   .top-member-email {
@@ -1769,7 +1776,7 @@ img {
   .top-member-research {
     font-size: 0.5rem;
     line-height: 1.3;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
   }
 
   .personal-page-btn {
@@ -1779,7 +1786,7 @@ img {
 
   .top-member-buttons {
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 0.1rem;
   }
 
   .intro-keywords {
@@ -2078,6 +2085,7 @@ img {
     padding: 0.3rem;
     align-items: center;
     text-align: center;
+    overflow: hidden;
   }
 
   .member-photo {
@@ -2089,6 +2097,9 @@ img {
     font-size: 0.5rem;
     line-height: 1.2;
     margin-bottom: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
   }
 
   .member-title-label {
@@ -2111,14 +2122,17 @@ img {
   .member-info .researchmap-btn {
     font-size: 0.4rem;
     padding: 0.1rem 0.3rem;
-    margin-bottom: 0.1rem;
-    margin-right: 0.1rem;
+    margin-bottom: 0;
+    margin-right: 0;
   }
 
   .member-buttons {
     align-self: center;
     margin-top: 0.2rem;
     padding-top: 0.1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.2rem;
   }
 
   .member-additional-roles {
