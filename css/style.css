@@ -854,6 +854,8 @@ img {
 
 .member-info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .member-name {
@@ -905,6 +907,48 @@ img {
   color: #999;
   font-size: 0.78rem;
   line-height: 1.6;
+}
+
+.member-info .email::before {
+  content: '✉ ';
+}
+
+.member-additional-roles {
+  font-size: 0.78rem;
+  color: #888;
+  font-weight: 400;
+  margin-bottom: 0.3rem;
+}
+
+.member-additional-roles:empty {
+  display: none;
+}
+
+.member-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+  align-self: flex-end;
+  padding-top: 0.75rem;
+}
+
+.member-info .researchmap-btn {
+  display: inline-block;
+  background-color: transparent;
+  color: #4a7a2e;
+  padding: 0.3rem 1.2rem;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid #4a7a2e;
+}
+
+.member-info .researchmap-btn:hover {
+  background-color: #4a7a2e;
+  color: #fff;
+  text-decoration: none;
 }
 
 /* Compact Member Grid */
@@ -1575,11 +1619,22 @@ img {
   }
 
   .member-info .samurai-btn,
-  .member-info .personal-page-btn {
+  .member-info .personal-page-btn,
+  .member-info .researchmap-btn {
     font-size: 0.45rem;
     padding: 0.1rem 0.4rem;
     margin-bottom: 0.1rem;
     margin-right: 0.1rem;
+  }
+
+  .member-buttons {
+    align-self: center;
+    margin-top: 0.2rem;
+    padding-top: 0.1rem;
+  }
+
+  .member-additional-roles {
+    display: none;
   }
 
   .member-section {
@@ -2015,11 +2070,22 @@ img {
   }
 
   .member-info .samurai-btn,
-  .member-info .personal-page-btn {
+  .member-info .personal-page-btn,
+  .member-info .researchmap-btn {
     font-size: 0.4rem;
     padding: 0.1rem 0.3rem;
     margin-bottom: 0.1rem;
     margin-right: 0.1rem;
+  }
+
+  .member-buttons {
+    align-self: center;
+    margin-top: 0.2rem;
+    padding-top: 0.1rem;
+  }
+
+  .member-additional-roles {
+    display: none;
   }
 
   .footer {
