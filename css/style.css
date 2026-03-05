@@ -922,13 +922,14 @@ img {
   color: #333;
   font-size: 0.78rem;
   font-weight: 500;
-  margin-bottom: 0.1rem;
+  margin-bottom: 0;
+  line-height: 1.4;
 }
 
 .member-info .keywords {
   color: #999;
   font-size: 0.78rem;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 
