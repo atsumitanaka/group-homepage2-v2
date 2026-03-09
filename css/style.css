@@ -1870,21 +1870,21 @@ img {
     padding: 1.5rem;
   }
 
-  /* Navbar — stack logos above group name */
+  /* Navbar — logos + group name in one row */
   .navbar {
     height: auto;
-    padding: 0.5rem 0;
+    padding: 0.3rem 0;
   }
 
   .navbar-inner {
-    padding: 0 1rem;
+    padding: 0 0.5rem;
     width: 100%;
   }
 
   .navbar-brand {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3rem;
   }
 
   .navbar-logos {
@@ -1892,24 +1892,22 @@ img {
   }
 
   .navbar-logos img {
-    height: 60px;
-    padding: 12px;
+    height: 36px;
+    padding: 6px;
   }
 
   .navbar-logos img:last-child {
-    height: 72px;
-    padding: 12px;
+    height: 44px;
+    padding: 7px;
   }
 
-
   .navbar-brand-text {
-    font-size: 0.85rem;
-    margin-left: 12px;
-    margin-top: -0.3rem;
+    font-size: 0.7rem;
+    margin-left: 0;
   }
 
   .nav-links {
-    top: 100px;
+    top: 50px;
   }
 
   .lang-switcher {
@@ -1917,7 +1915,7 @@ img {
   }
 
   .hero {
-    margin-top: 90px;
+    margin-top: 50px;
   }
 
   .hero-image {
