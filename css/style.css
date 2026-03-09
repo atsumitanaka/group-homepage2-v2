@@ -1946,7 +1946,8 @@ img {
   }
 
   .hero-title {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    white-space: nowrap;
   }
 
   .intro-heading {
@@ -2061,7 +2062,8 @@ img {
   }
 
   .hero-title {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    white-space: nowrap;
   }
 
   .section {
