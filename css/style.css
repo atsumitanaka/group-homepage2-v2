@@ -1528,7 +1528,7 @@ img {
 /* ========================================
    Responsive Design
    ======================================== */
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .top-member-grid {
     grid-template-columns: repeat(3, 1fr);
   }
