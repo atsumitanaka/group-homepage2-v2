@@ -1536,6 +1536,34 @@ img {
   .intro-text p {
     font-size: 0.78rem;
   }
+
+  /* Navbar — shrink for tablet width */
+  .navbar-brand {
+    gap: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .navbar-logos {
+    flex-shrink: 0;
+  }
+
+  .navbar-logos img {
+    height: 45px;
+    padding: 9px;
+  }
+
+  .navbar-logos img:last-child {
+    height: 55px;
+    padding: 9px;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .lang-switcher {
+    margin-left: 0.8rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1543,7 +1571,7 @@ img {
   .nav-links {
     display: none;
     position: fixed;
-    top: 86px;
+    top: 50px;
     left: 0;
     right: 0;
     background-color: #fff;
@@ -1575,32 +1603,53 @@ img {
     display: flex;
   }
 
-  /* Navbar — stack logos above group name on tablet */
+  /* Navbar — logos + group name in one row */
   .navbar {
     height: auto;
-    padding: 0.5rem 0;
+    padding: 0.3rem 0;
+  }
+
+  .navbar-inner {
+    padding: 0 0.75rem;
+    width: 100%;
   }
 
   .navbar-brand {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.15rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+  }
+
+  .navbar-logos {
+    flex-shrink: 0;
   }
 
   .navbar-logos img {
-    height: 56px;
-    padding: 11px;
+    height: 38px;
+    padding: 7px;
   }
 
   .navbar-logos img:last-child {
-    height: 68px;
-    padding: 11px;
+    height: 46px;
+    padding: 7px;
   }
 
+  .navbar-brand-text {
+    font-size: 0.75rem;
+  }
+
+  .group-full {
+    display: none;
+  }
+
+  .group-short {
+    display: inline;
+  }
 
   /* Hero */
   .hero {
-    margin-top: 86px;
+    margin-top: 50px;
   }
 
   .hero-image {
@@ -1783,14 +1832,6 @@ img {
 }
 
 @media (max-width: 480px) {
-  .group-full {
-    display: none;
-  }
-
-  .group-short {
-    display: inline;
-  }
-
   .top-member-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 0.3rem;
@@ -1870,52 +1911,23 @@ img {
     padding: 1.5rem;
   }
 
-  /* Navbar — logos + group name in one row */
-  .navbar {
-    height: auto;
-    padding: 0.3rem 0;
-  }
-
+  /* Navbar — fine-tune for small screens */
   .navbar-inner {
     padding: 0 0.5rem;
-    width: 100%;
-  }
-
-  .navbar-brand {
-    flex-direction: row;
-    align-items: center;
-    gap: 0.3rem;
-  }
-
-  .navbar-logos {
-    gap: 0;
   }
 
   .navbar-logos img {
-    height: 36px;
+    height: 34px;
     padding: 6px;
   }
 
   .navbar-logos img:last-child {
-    height: 44px;
-    padding: 7px;
+    height: 42px;
+    padding: 6px;
   }
 
   .navbar-brand-text {
     font-size: 0.7rem;
-    margin-left: 0;
-  }
-
-  .nav-links {
-    top: 50px;
-  }
-
-  .lang-switcher {
-    font-size: 0.85rem;
-  }
-
-  .hero {
-    margin-top: 50px;
   }
 
   .hero-image {
