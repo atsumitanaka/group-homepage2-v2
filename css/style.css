@@ -123,6 +123,10 @@ img {
   font-weight: 700;
 }
 
+.group-short {
+  display: none;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -1779,6 +1783,14 @@ img {
 }
 
 @media (max-width: 480px) {
+  .group-full {
+    display: none;
+  }
+
+  .group-short {
+    display: inline;
+  }
+
   .top-member-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 0.3rem;
