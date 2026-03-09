@@ -1541,6 +1541,12 @@ img {
     font-size: 0.78rem;
   }
 
+  /* Hero — fluid title for tablet */
+  .hero-title {
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    white-space: nowrap;
+  }
+
   /* Navbar — shrink for tablet width */
   .navbar-inner {
     width: 95%;
