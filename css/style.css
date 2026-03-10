@@ -1579,21 +1579,15 @@ img {
     display: inline;
   }
 
-  .nav-links {
-    gap: 1rem;
+  /* Hamburger menu activation */
+  .hamburger {
+    display: flex;
   }
 
-  .lang-switcher {
-    margin-left: 0.8rem;
-  }
-}
-
-@media (max-width: 768px) {
-  /* Navbar mobile */
   .nav-links {
     display: none;
     position: fixed;
-    top: 50px;
+    top: 80px;
     left: 0;
     right: 0;
     background-color: #fff;
@@ -1621,11 +1615,22 @@ img {
     border-bottom: none;
   }
 
-  .hamburger {
-    display: flex;
+  .lang-switcher {
+    margin-left: 0;
+    padding: 1rem 0;
+    justify-content: center;
+    font-size: 0.95rem;
+    border-bottom: none;
   }
 
-  /* Navbar — logos + group name in one row */
+  /* Members — 1 column for readable layout */
+  .member-grid-2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Navbar — compact for mobile */
   .navbar {
     height: auto;
     padding: 0.3rem 0;
@@ -1637,14 +1642,8 @@ img {
   }
 
   .navbar-brand {
-    flex-direction: row;
-    align-items: center;
     gap: 0.3rem;
     font-size: 0.85rem;
-  }
-
-  .navbar-logos {
-    flex-shrink: 0;
   }
 
   .navbar-logos img {
@@ -1661,12 +1660,8 @@ img {
     font-size: 0.75rem;
   }
 
-  .group-full {
-    display: none;
-  }
-
-  .group-short {
-    display: inline;
+  .nav-links {
+    top: 50px;
   }
 
   /* Hero */
