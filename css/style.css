@@ -1078,7 +1078,8 @@ img {
   grid-column: span 2;
 }
 
-.member-grid-2col {
+.member-grid-2col,
+.member-grid-researcher {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
@@ -1623,8 +1624,8 @@ img {
     border-bottom: none;
   }
 
-  /* Members — 1 column for readable layout */
-  .member-grid-2col {
+  /* Members — researchers only: 1 column for readable layout */
+  .member-grid-researcher {
     grid-template-columns: 1fr;
   }
 }
@@ -1713,7 +1714,8 @@ img {
     gap: 0.75rem;
   }
 
-  .member-grid-2col {
+  .member-grid-2col,
+  .member-grid-researcher {
     grid-template-columns: repeat(3, 1fr);
     gap: 0.4rem;
   }
@@ -2160,7 +2162,8 @@ img {
     font-size: 0.78rem;
   }
 
-  .member-grid-2col {
+  .member-grid-2col,
+  .member-grid-researcher {
     grid-template-columns: repeat(4, 1fr);
     gap: 0.3rem;
   }
