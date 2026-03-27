@@ -1121,7 +1121,7 @@ img {
 }
 
 .member-grid-3col .member-buttons {
-  align-self: flex-start;
+  align-self: center;
   margin-top: 0.3rem;
 }
 
