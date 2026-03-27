@@ -1128,6 +1128,11 @@ img {
   margin-bottom: 0.3rem;
 }
 
+.member-grid-4col .member-buttons {
+  align-self: center;
+  justify-content: center;
+}
+
 .member-title-label {
   font-size: 0.78rem;
   color: #999;
