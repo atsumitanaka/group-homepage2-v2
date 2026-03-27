@@ -1765,6 +1765,16 @@ img {
     gap: 0.4rem;
   }
 
+  .member-grid-3col .member-entry {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .member-grid-3col .member-info {
+    align-items: center;
+  }
+
   .member-entry {
     flex-direction: column;
     gap: 0.2rem;
@@ -1775,8 +1785,8 @@ img {
   }
 
   .member-photo {
-    width: 50px;
-    height: 65px;
+    width: 65px;
+    height: 87px;
   }
 
   .member-name {
@@ -2218,6 +2228,16 @@ img {
     gap: 0.3rem;
   }
 
+  .member-grid-3col .member-entry {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .member-grid-3col .member-info {
+    align-items: center;
+  }
+
   .member-entry {
     flex-direction: column;
     gap: 0.2rem;
@@ -2228,8 +2248,8 @@ img {
   }
 
   .member-photo {
-    width: 40px;
-    height: 52px;
+    width: 50px;
+    height: 67px;
   }
 
   .member-name {
