@@ -1085,6 +1085,49 @@ img {
   gap: 1.5rem;
 }
 
+.member-grid-4col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.member-grid-4col .member-entry {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  gap: 0.75rem;
+}
+
+.member-grid-4col .member-entry:hover {
+  box-shadow: none;
+}
+
+.member-grid-4col .member-photo {
+  width: 120px;
+  height: 160px;
+}
+
+.member-grid-4col .member-info {
+  align-items: center;
+}
+
+.member-grid-4col .member-name {
+  font-size: 0.9rem;
+}
+
+.member-grid-4col .member-title-label {
+  margin-bottom: 0.3rem;
+}
+
+.member-grid-4col .member-additional-roles {
+  font-size: 0.72rem;
+  margin-bottom: 0.3rem;
+}
+
 .member-title-label {
   font-size: 0.78rem;
   color: #999;
@@ -1720,6 +1763,11 @@ img {
     gap: 0.4rem;
   }
 
+  .member-grid-4col {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+  }
+
   .member-entry {
     flex-direction: column;
     gap: 0.2rem;
@@ -2165,6 +2213,11 @@ img {
   .member-grid-2col,
   .member-grid-researcher {
     grid-template-columns: repeat(4, 1fr);
+    gap: 0.3rem;
+  }
+
+  .member-grid-4col {
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.3rem;
   }
 
