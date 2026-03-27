@@ -1775,6 +1775,11 @@ img {
     align-items: center;
   }
 
+  .member-grid-3col .member-photo {
+    width: 65px;
+    height: 87px;
+  }
+
   .member-entry {
     flex-direction: column;
     gap: 0.2rem;
@@ -2236,6 +2241,11 @@ img {
 
   .member-grid-3col .member-info {
     align-items: center;
+  }
+
+  .member-grid-3col .member-photo {
+    width: 50px;
+    height: 67px;
   }
 
   .member-entry {
