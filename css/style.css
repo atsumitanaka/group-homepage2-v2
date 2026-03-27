@@ -1776,8 +1776,8 @@ img {
   }
 
   .member-grid-3col .member-photo {
-    width: 65px;
-    height: 87px;
+    width: 100px;
+    height: 133px;
   }
 
   .member-entry {
@@ -1790,12 +1790,12 @@ img {
   }
 
   .member-photo {
-    width: 65px;
-    height: 87px;
+    width: 100px;
+    height: 133px;
   }
 
   .member-name {
-    font-size: 0.55rem;
+    font-size: 0.7rem;
     line-height: 1.2;
     margin-bottom: 0;
     overflow-wrap: break-word;
@@ -1804,7 +1804,7 @@ img {
   }
 
   .member-title-label {
-    font-size: 0.45rem;
+    font-size: 0.6rem;
     margin-bottom: 0.1rem;
   }
 
@@ -2244,8 +2244,8 @@ img {
   }
 
   .member-grid-3col .member-photo {
-    width: 50px;
-    height: 67px;
+    width: 80px;
+    height: 107px;
   }
 
   .member-entry {
@@ -2258,12 +2258,12 @@ img {
   }
 
   .member-photo {
-    width: 50px;
-    height: 67px;
+    width: 80px;
+    height: 107px;
   }
 
   .member-name {
-    font-size: 0.5rem;
+    font-size: 0.6rem;
     line-height: 1.2;
     margin-bottom: 0;
     overflow-wrap: break-word;
@@ -2272,7 +2272,7 @@ img {
   }
 
   .member-title-label {
-    font-size: 0.4rem;
+    font-size: 0.5rem;
     margin-bottom: 0.1rem;
   }
 
