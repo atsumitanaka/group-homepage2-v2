@@ -2,8 +2,8 @@ name: Update researcher roles
 
 on:
   schedule:
-    # 毎週月曜 9:00 JST (= 日曜 24:00 UTC)
-    - cron: '0 0 * * 1'
+    # 毎月1日 6:00 JST (≒ 1日 0:00 UTC / 実際は9:00 JST)
+    - cron: '0 0 1 * *'
   workflow_dispatch: # 手動実行も可能
 
 permissions:
