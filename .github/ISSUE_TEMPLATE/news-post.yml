@@ -1,0 +1,60 @@
+name: "News投稿"
+description: "ニュースを追加する（フォーム入力で簡単に投稿できます）"
+title: "[News] "
+labels: ["news"]
+body:
+  - type: input
+    id: date
+    attributes:
+      label: "日付"
+      description: "YYYY-MM-DD 形式で入力してください"
+      placeholder: "2026-04-01"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "カテゴリ"
+      options:
+        - お知らせ / Announcement
+        - プレスリリース / Press Release
+        - 受賞 / Award
+        - メディア / Media
+        - イベント / Event
+    validations:
+      required: true
+
+  - type: input
+    id: title_ja
+    attributes:
+      label: "タイトル（日本語）"
+      placeholder: "○○研究員が△△賞を受賞"
+    validations:
+      required: true
+
+  - type: input
+    id: title_en
+    attributes:
+      label: "タイトル（英語）"
+      placeholder: "Researcher XX received YY Award"
+    validations:
+      required: true
+
+  - type: textarea
+    id: body_ja
+    attributes:
+      label: "本文（日本語）"
+      description: "リンクを入れる場合: <a href=\"URL\" target=\"_blank\">リンクテキスト</a>"
+      placeholder: "ニュースの詳細を記入してください"
+    validations:
+      required: true
+
+  - type: textarea
+    id: body_en
+    attributes:
+      label: "本文（英語）"
+      description: "Links: <a href=\"URL\" target=\"_blank\">link text</a>"
+      placeholder: "Enter news details in English"
+    validations:
+      required: true
