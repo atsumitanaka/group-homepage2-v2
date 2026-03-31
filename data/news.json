@@ -1,0 +1,56 @@
+[
+  {
+    "date": "2025-08-05",
+    "category": "メディア",
+    "category_en": "Media",
+    "title": "日本経済新聞に桂ゆかり主任研究員の研究が掲載されました",
+    "title_en": "Research by Senior Researcher Yukari Katsura featured in Nikkei newspaper",
+    "body": "日本経済新聞18面にて、桂ゆかり主任研究員のプレスリリース「<a href=\"https://www.nims.go.jp/press/2025/04/202504150.html\" target=\"_blank\">新物質を見つけるための地図を機械学習で開発して公開</a>」に関する記事が掲載されました。",
+    "body_en": "An article on Senior Researcher Yukari Katsura's press release \"<a href=\"https://www.nims.go.jp/press/2025/04/202504150.html\" target=\"_blank\">Machine learning-developed maps for discovering new materials published</a>\" was featured on page 18 of the Nikkei newspaper."
+  },
+  {
+    "date": "2025-08-01",
+    "category": "お知らせ",
+    "category_en": "Announcement",
+    "title": "グループホームページをリニューアルしました",
+    "title_en": "Group homepage has been renewed",
+    "body": "材料モデリンググループのホームページをリニューアルしました。",
+    "body_en": "The Materials Modeling Group homepage has been renewed."
+  },
+  {
+    "date": "2025-04-25",
+    "category": "受賞",
+    "category_en": "Award",
+    "title": "渡邊育夢主幹研究員がScience Direct「Most prolific reviewers」に選出",
+    "title_en": "Principal Researcher Ikumu Watanabe selected as Science Direct \"Most prolific reviewers\"",
+    "body": "渡邊育夢主幹研究員がScience Direct「The 2024 Materials &amp; Design Most prolific reviewers」に選出されました。科学分野における知識の進展に対する貢献が評価されました。",
+    "body_en": "Principal Researcher Ikumu Watanabe was selected as Science Direct \"The 2024 Materials &amp; Design Most prolific reviewers.\" His contributions to the advancement of knowledge in the scientific field were recognized."
+  },
+  {
+    "date": "2025-04-16",
+    "category": "受賞",
+    "category_en": "Award",
+    "title": "渡邊育夢主幹研究員の論文がWILEY「Top Viewed Article」に選出",
+    "title_en": "Principal Researcher Ikumu Watanabe's paper selected as WILEY \"Top Viewed Article\"",
+    "body": "渡邊育夢主幹研究員の論文「Deep Learning in Mechanical Metamaterials: From Prediction and Generation to Inverse Design」がWILEY「Top Viewed Article (Advanced Materials)」に選出されました。",
+    "body_en": "Principal Researcher Ikumu Watanabe's paper \"Deep Learning in Mechanical Metamaterials: From Prediction and Generation to Inverse Design\" was selected as WILEY \"Top Viewed Article (Advanced Materials).\""
+  },
+  {
+    "date": "2025-04-15",
+    "category": "プレスリリース",
+    "category_en": "Press Release",
+    "title": "新物質を見つけるための地図を機械学習で開発して公開",
+    "title_en": "Machine learning-developed maps for discovering new materials published",
+    "body": "桂ゆかり主任研究員：3元素の反応可能性をまとめた「元素反応性マップ」80枚から、有望な元素の組3,000種類を提案。<a href=\"https://www.nims.go.jp/press/2025/04/202504150.html\" target=\"_blank\">詳しくはこちら</a>",
+    "body_en": "Senior Researcher Yukari Katsura: From 80 \"element reactivity maps\" summarizing the reaction possibilities of ternary elements, 3,000 promising element combinations were proposed. <a href=\"https://www.nims.go.jp/press/2025/04/202504150.html\" target=\"_blank\">Learn more</a>"
+  },
+  {
+    "date": "2025-03-13",
+    "category": "プレスリリース",
+    "category_en": "Press Release",
+    "title": "データを隠したまま機械学習モデルを構築",
+    "title_en": "Building machine learning models while keeping data hidden",
+    "body": "出村雅彦グループリーダー：6社2国研の産学データ連携で幅広い耐熱材料の長期耐久性を予測。<a href=\"https://www.nims.go.jp/press/2025/03/202503130.html\" target=\"_blank\">詳しくはこちら</a>",
+    "body_en": "Group Leader Masahiko Demura: Predicting long-term durability of a wide range of heat-resistant materials through industry-academia data collaboration of 6 companies and 2 national research institutes. <a href=\"https://www.nims.go.jp/press/2025/03/202503130.html\" target=\"_blank\">Learn more</a>"
+  }
+]
