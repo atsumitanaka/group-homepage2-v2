@@ -26,6 +26,8 @@ function renderNews(data, lang) {
     card.style.cursor = 'pointer';
     card.addEventListener('click', function () { openModal(index, lang); });
     list.appendChild(card);
+    // fade-in-upのアニメーションを発火させる
+    requestAnimationFrame(function () { card.classList.add('visible'); });
   });
 }
 
