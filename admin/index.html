@@ -9,8 +9,8 @@
     body { font-family: 'Noto Sans JP', 'Inter', sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
     .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
     .layout { display: flex; gap: 1.5rem; align-items: flex-start; }
-    .col-list { flex: 1; min-width: 0; }
-    .col-form { width: 420px; flex-shrink: 0; position: sticky; top: 1rem; }
+    .col-list { flex: 3; min-width: 0; }
+    .col-form { flex: 7; position: sticky; top: 1rem; }
     @media (max-width: 900px) {
       .layout { flex-direction: column-reverse; }
       .col-form { width: 100%; position: static; }
@@ -52,8 +52,8 @@
     .news-item-meta { display: flex; gap: 0.6rem; align-items: center; }
     .news-item-meta .cat { background: #f0f0f0; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.72rem; color: #666; }
     .news-item-meta .dt { font-size: 0.78rem; color: #999; }
-    .news-item-title { font-size: 0.9rem; font-weight: 600; color: #1a1a1a; margin-bottom: 0.3rem; }
-    .news-item-body { font-size: 0.78rem; color: #888; line-height: 1.5; }
+    .news-item-title { font-size: 0.9rem; font-weight: 600; color: #1a1a1a; margin-bottom: 0.3rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .news-item-body { font-size: 0.78rem; color: #888; line-height: 1.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .news-item-actions { display: flex; gap: 0.5rem; }
     .loading { text-align: center; color: #999; padding: 2rem; font-size: 0.85rem; }
     /* 編集フォーム（インライン） */
@@ -90,11 +90,11 @@
           <form id="news-form">
             <div class="field">
               <label>日付</label>
-              <input type="date" id="date" required>
+              <input type="date" id="date">
             </div>
             <div class="field">
               <label>カテゴリ</label>
-              <select id="category" required>
+              <select id="category">
                 <option value="">選択してください</option>
                 <option value="お知らせ">お知らせ / Announcement</option>
                 <option value="プレスリリース">プレスリリース / Press Release</option>
@@ -105,19 +105,19 @@
             </div>
             <div class="field">
               <label>タイトル（日本語）</label>
-              <input type="text" id="title_ja" required>
+              <input type="text" id="title_ja">
             </div>
             <div class="field">
               <label>タイトル（英語）</label>
-              <input type="text" id="title_en" required>
+              <input type="text" id="title_en">
             </div>
             <div class="field">
               <label>本文（日本語）<span class="hint">リンク: &lt;a href="URL" target="_blank"&gt;テキスト&lt;/a&gt;</span></label>
-              <textarea id="body_ja" required></textarea>
+              <textarea id="body_ja"></textarea>
             </div>
             <div class="field">
               <label>本文（英語）<span class="hint">Links: &lt;a href="URL" target="_blank"&gt;text&lt;/a&gt;</span></label>
-              <textarea id="body_en" required></textarea>
+              <textarea id="body_en"></textarea>
             </div>
             <button type="submit" class="btn btn-primary" id="submit-btn">投稿する</button>
           </form>
