@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-04-01",
+    "category": "お知らせ",
+    "category_en": "Announcement",
+    "title": "テスト",
+    "title_en": "test",
+    "body": "テスト",
+    "body_en": "test"
+  },
+  {
     "date": "2025-08-05",
     "category": "メディア",
     "category_en": "Media",
