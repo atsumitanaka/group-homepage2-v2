@@ -73,19 +73,7 @@
         <h2>News</h2>
         <a href="news.html" class="more-link">View All →</a>
       </div>
-      <div class="news-timeline fade-in-up">
-        <div class="news-timeline-item">
-          <span class="date">2025-08-05</span>
-          <span class="news-title">日本経済新聞に桂ゆかり主任研究員の研究が掲載されました</span>
-        </div>
-        <div class="news-timeline-item">
-          <span class="date">2025-08-01</span>
-          <span class="news-title">グループホームページをリニューアルしました</span>
-        </div>
-        <div class="news-timeline-item">
-          <span class="date">2025-04-25</span>
-          <span class="news-title">渡邊育夢主幹研究員がScience Direct「Most prolific reviewers」に選出</span>
-        </div>
+      <div class="news-timeline fade-in-up" id="top-news">
       </div>
     </div>
     <div class="wave-divider-bottom">
@@ -225,5 +213,25 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    (function() {
+      var el = document.getElementById('top-news');
+      if (!el) return;
+      var base = location.pathname.substring(0, location.pathname.lastIndexOf('/') + 1);
+      fetch(base + 'data/news.json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var lang = location.pathname.includes('-en.html') ? 'en' : 'ja';
+          data.slice(0, 5).forEach(function(item) {
+            var title = lang === 'en' ? (item.title_en || item.title) : item.title;
+            var div = document.createElement('div');
+            div.className = 'news-timeline-item';
+            div.innerHTML = '<span class="date">' + (item.date || '') + '</span><span class="news-title">' + title + '</span>';
+            el.appendChild(div);
+          });
+          el.classList.add('visible');
+        });
+    })();
+  </script>
 </body>
 </html>
