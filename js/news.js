@@ -59,10 +59,18 @@ document.addEventListener('keydown', function (event) {
 
 document.addEventListener('DOMContentLoaded', function () {
   var lang = detectLang();
-  fetch('data/news.json')
-    .then(function (res) { return res.json(); })
+  var basePath = location.pathname.substring(0, location.pathname.lastIndexOf('/') + 1);
+  fetch(basePath + 'data/news.json')
+    .then(function (res) {
+      if (!res.ok) throw new Error('Failed to load news.json: ' + res.status);
+      return res.json();
+    })
     .then(function (data) {
       newsData = data;
       renderNews(data, lang);
+    })
+    .catch(function (err) {
+      console.error(err);
+      document.getElementById('news-list').innerHTML = '<p>ニュースの読み込みに失敗しました。</p>';
     });
 });
