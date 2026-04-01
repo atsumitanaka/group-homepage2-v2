@@ -6,133 +6,73 @@
   <title>News Admin - Materials Modeling Group</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Noto Sans JP', 'Inter', sans-serif;
-      background: #f5f5f5;
-      color: #333;
-      line-height: 1.6;
+    body { font-family: 'Noto Sans JP', 'Inter', sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+    .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; color: #1a1a1a; }
+    .subtitle { color: #888; font-size: 0.85rem; margin-bottom: 2rem; }
+    .card { background: #fff; border-radius: 8px; padding: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 1.5rem; }
+    .card h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #1a1a1a; }
+    .field { margin-bottom: 1.2rem; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; color: #1a1a1a; margin-bottom: 0.3rem; }
+    label .hint { font-weight: 400; color: #999; font-size: 0.75rem; display: block; margin-top: 0.1rem; }
+    input[type="text"], input[type="date"], select, textarea {
+      width: 100%; padding: 0.5rem 0.7rem; border: 1px solid #ddd; border-radius: 4px;
+      font-size: 0.88rem; font-family: inherit; transition: border-color 0.2s;
     }
-    .container {
-      max-width: 700px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: #1a1a1a;
-    }
-    .subtitle {
-      color: #888;
-      font-size: 0.85rem;
-      margin-bottom: 2rem;
-    }
-    .form-card {
-      background: #fff;
-      border-radius: 8px;
-      padding: 2rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
-    .field {
-      margin-bottom: 1.5rem;
-    }
-    label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #1a1a1a;
-      margin-bottom: 0.4rem;
-    }
-    label .hint {
-      font-weight: 400;
-      color: #999;
-      font-size: 0.75rem;
-      display: block;
-      margin-top: 0.15rem;
-    }
-    input[type="text"],
-    input[type="date"],
-    select,
-    textarea {
-      width: 100%;
-      padding: 0.6rem 0.8rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      font-family: inherit;
-      transition: border-color 0.2s;
-    }
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: #c83c2d;
-    }
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-    .btn-submit {
-      display: block;
-      width: 100%;
-      padding: 0.8rem;
-      background: #c83c2d;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-submit:hover { background: #a02e22; }
-    .btn-submit:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-    .message {
-      margin-top: 1rem;
-      padding: 0.8rem 1rem;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      display: none;
-    }
-    .message.success {
-      display: block;
-      background: #e8f5e9;
-      color: #2e7d32;
-      border: 1px solid #a5d6a7;
-    }
-    .message.error {
-      display: block;
-      background: #fbe9e7;
-      color: #c62828;
-      border: 1px solid #ef9a9a;
-    }
-    .back-link {
-      display: inline-block;
-      margin-top: 1.5rem;
-      color: #888;
-      font-size: 0.8rem;
-      text-decoration: none;
-    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #c83c2d; }
+    textarea { min-height: 80px; resize: vertical; }
+    .btn { display: inline-block; padding: 0.6rem 1.2rem; border: none; border-radius: 4px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { background: #c83c2d; color: #fff; width: 100%; }
+    .btn-primary:hover { background: #a02e22; }
+    .btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+    .btn-edit { background: #4a7a2e; color: #fff; font-size: 0.78rem; padding: 0.35rem 0.8rem; }
+    .btn-edit:hover { background: #3a6224; }
+    .btn-delete { background: transparent; color: #c83c2d; border: 1px solid #c83c2d; font-size: 0.78rem; padding: 0.35rem 0.8rem; }
+    .btn-delete:hover { background: #fbe9e7; }
+    .btn-cancel { background: #eee; color: #666; font-size: 0.78rem; padding: 0.35rem 0.8rem; }
+    .btn-cancel:hover { background: #ddd; }
+    .btn-save { background: #c83c2d; color: #fff; font-size: 0.78rem; padding: 0.35rem 0.8rem; }
+    .btn-save:hover { background: #a02e22; }
+    .message { margin-top: 1rem; padding: 0.7rem 1rem; border-radius: 4px; font-size: 0.85rem; display: none; }
+    .message.success { display: block; background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .message.error { display: block; background: #fbe9e7; color: #c62828; border: 1px solid #ef9a9a; }
+    .back-link { display: inline-block; margin-top: 1rem; color: #888; font-size: 0.8rem; text-decoration: none; }
     .back-link:hover { color: #c83c2d; }
+    /* 投稿一覧 */
+    .news-item { border: 1px solid #eee; border-radius: 6px; padding: 1rem; margin-bottom: 0.8rem; transition: box-shadow 0.2s; }
+    .news-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .news-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
+    .news-item-meta { display: flex; gap: 0.6rem; align-items: center; }
+    .news-item-meta .cat { background: #f0f0f0; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.72rem; color: #666; }
+    .news-item-meta .dt { font-size: 0.78rem; color: #999; }
+    .news-item-title { font-size: 0.9rem; font-weight: 600; color: #1a1a1a; margin-bottom: 0.3rem; }
+    .news-item-body { font-size: 0.78rem; color: #888; line-height: 1.5; }
+    .news-item-actions { display: flex; gap: 0.5rem; }
+    .loading { text-align: center; color: #999; padding: 2rem; font-size: 0.85rem; }
+    /* 編集フォーム（インライン） */
+    .edit-form { margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid #eee; }
+    .edit-form .field { margin-bottom: 0.8rem; }
+    .edit-form label { font-size: 0.78rem; }
+    .edit-form input, .edit-form select, .edit-form textarea { font-size: 0.82rem; padding: 0.4rem 0.6rem; }
+    .edit-form textarea { min-height: 60px; }
+    .edit-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+    .confirm-delete { margin-top: 0.5rem; padding: 0.6rem; background: #fff5f5; border-radius: 4px; font-size: 0.82rem; color: #c62828; }
+    .confirm-delete .btn { margin-left: 0.5rem; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>News Admin</h1>
-    <p class="subtitle">Materials Modeling Group - ニュース投稿フォーム</p>
+    <p class="subtitle">Materials Modeling Group - ニュース管理</p>
 
-    <div class="form-card">
+    <!-- 新規投稿 -->
+    <div class="card">
+      <h2>新規投稿</h2>
       <form id="news-form">
         <div class="field">
-          <label>
-            日付
-            <span class="hint">ニュースの日付を選択してください</span>
-          </label>
+          <label>日付</label>
           <input type="date" id="date" required>
         </div>
-
         <div class="field">
           <label>カテゴリ</label>
           <select id="category" required>
@@ -144,76 +84,167 @@
             <option value="イベント">イベント / Event</option>
           </select>
         </div>
-
         <div class="field">
-          <label>
-            タイトル（日本語）
-            <span class="hint">例: ○○研究員が△△賞を受賞</span>
-          </label>
+          <label>タイトル（日本語）</label>
           <input type="text" id="title_ja" required>
         </div>
-
         <div class="field">
-          <label>
-            タイトル（英語）
-            <span class="hint">例: Researcher XX received YY Award</span>
-          </label>
+          <label>タイトル（英語）</label>
           <input type="text" id="title_en" required>
         </div>
-
         <div class="field">
-          <label>
-            本文（日本語）
-            <span class="hint">リンクを入れる場合: &lt;a href="URL" target="_blank"&gt;テキスト&lt;/a&gt;</span>
-          </label>
+          <label>本文（日本語）<span class="hint">リンク: &lt;a href="URL" target="_blank"&gt;テキスト&lt;/a&gt;</span></label>
           <textarea id="body_ja" required></textarea>
         </div>
-
         <div class="field">
-          <label>
-            本文（英語）
-            <span class="hint">For links: &lt;a href="URL" target="_blank"&gt;text&lt;/a&gt;</span>
-          </label>
+          <label>本文（英語）<span class="hint">Links: &lt;a href="URL" target="_blank"&gt;text&lt;/a&gt;</span></label>
           <textarea id="body_en" required></textarea>
         </div>
-
-        <button type="submit" class="btn-submit" id="submit-btn">投稿する</button>
+        <button type="submit" class="btn btn-primary" id="submit-btn">投稿する</button>
       </form>
-
       <div class="message" id="message"></div>
+    </div>
+
+    <!-- 投稿一覧 -->
+    <div class="card">
+      <h2>投稿一覧</h2>
+      <div id="news-list">
+        <p class="loading">読み込み中...</p>
+      </div>
     </div>
 
     <a href="../index.html" class="back-link">← ホームページに戻る</a>
   </div>
 
   <script>
-    // ======================================================
-    // Google Apps Script のデプロイURL をここに設定
-    // ======================================================
     var GAS_URL = 'https://script.google.com/macros/s/AKfycbx_u67JnXKn5Fb3tcD6fQyn1as28Im6gcgdK7Mb9UAD6V3jCS2-Qn7tJYK14P9UN6qB/exec';
 
     var CATEGORY_EN = {
-      'お知らせ': 'Announcement',
-      'プレスリリース': 'Press Release',
-      '受賞': 'Award',
-      'メディア': 'Media',
-      'イベント': 'Event'
+      'お知らせ': 'Announcement', 'プレスリリース': 'Press Release',
+      '受賞': 'Award', 'メディア': 'Media', 'イベント': 'Event'
     };
+    var CATEGORY_EN_TO_JA = {};
+    Object.keys(CATEGORY_EN).forEach(function(k) { CATEGORY_EN_TO_JA[CATEGORY_EN[k]] = k; });
 
+    var newsList = [];
+
+    // ── 一覧読み込み ──
+    function loadNews() {
+      var listEl = document.getElementById('news-list');
+      listEl.innerHTML = '<p class="loading">読み込み中...</p>';
+      fetch(GAS_URL)
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+          if (res.status !== 'ok') throw new Error(res.message);
+          newsList = res.data;
+          renderList();
+        })
+        .catch(function(err) {
+          listEl.innerHTML = '<p class="loading">読み込みに失敗しました: ' + err.message + '</p>';
+        });
+    }
+
+    function renderList() {
+      var listEl = document.getElementById('news-list');
+      if (!newsList.length) { listEl.innerHTML = '<p class="loading">ニュースはありません</p>'; return; }
+      listEl.innerHTML = '';
+      newsList.forEach(function(item, i) {
+        var div = document.createElement('div');
+        div.className = 'news-item';
+        div.id = 'news-item-' + i;
+        div.innerHTML =
+          '<div class="news-item-header">' +
+            '<div class="news-item-meta">' +
+              '<span class="cat">' + esc(item.category) + '</span>' +
+              '<span class="dt">' + esc(item.date) + '</span>' +
+            '</div>' +
+            '<div class="news-item-actions">' +
+              '<button class="btn btn-edit" onclick="startEdit(' + i + ')">編集</button>' +
+              '<button class="btn btn-delete" onclick="confirmDelete(' + i + ')">削除</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="news-item-title">' + esc(item.title) + '</div>' +
+          '<div class="news-item-body">' + esc(item.title_en) + '</div>' +
+          '<div id="edit-area-' + i + '"></div>';
+        listEl.appendChild(div);
+      });
+    }
+
+    function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+    // ── 編集 ──
+    function startEdit(index) {
+      var item = newsList[index];
+      var area = document.getElementById('edit-area-' + index);
+      var bodyJa = (item.body || '').replace(/<br>/g, '\n');
+      var bodyEn = (item.body_en || '').replace(/<br>/g, '\n');
+      area.innerHTML =
+        '<div class="edit-form">' +
+          '<div class="field"><label>日付</label><input type="date" id="edit-date-' + index + '" value="' + esc(item.date) + '"></div>' +
+          '<div class="field"><label>カテゴリ</label>' + buildCategorySelect('edit-cat-' + index, item.category) + '</div>' +
+          '<div class="field"><label>タイトル（日本語）</label><input type="text" id="edit-title-ja-' + index + '" value="' + esc(item.title) + '"></div>' +
+          '<div class="field"><label>タイトル（英語）</label><input type="text" id="edit-title-en-' + index + '" value="' + esc(item.title_en) + '"></div>' +
+          '<div class="field"><label>本文（日本語）</label><textarea id="edit-body-ja-' + index + '">' + esc(bodyJa) + '</textarea></div>' +
+          '<div class="field"><label>本文（英語）</label><textarea id="edit-body-en-' + index + '">' + esc(bodyEn) + '</textarea></div>' +
+          '<div class="edit-actions">' +
+            '<button class="btn btn-cancel" onclick="cancelEdit(' + index + ')">キャンセル</button>' +
+            '<button class="btn btn-save" onclick="saveEdit(' + index + ')">保存</button>' +
+          '</div>' +
+        '</div>';
+    }
+
+    function buildCategorySelect(id, current) {
+      var opts = ['お知らせ', 'プレスリリース', '受賞', 'メディア', 'イベント'];
+      var html = '<select id="' + id + '">';
+      opts.forEach(function(o) {
+        html += '<option value="' + o + '"' + (o === current ? ' selected' : '') + '>' + o + ' / ' + CATEGORY_EN[o] + '</option>';
+      });
+      return html + '</select>';
+    }
+
+    function cancelEdit(index) {
+      document.getElementById('edit-area-' + index).innerHTML = '';
+    }
+
+    function saveEdit(index) {
+      var cat = document.getElementById('edit-cat-' + index).value;
+      var entry = {
+        date: document.getElementById('edit-date-' + index).value,
+        category: cat,
+        category_en: CATEGORY_EN[cat] || cat,
+        title: document.getElementById('edit-title-ja-' + index).value,
+        title_en: document.getElementById('edit-title-en-' + index).value,
+        body: document.getElementById('edit-body-ja-' + index).value,
+        body_en: document.getElementById('edit-body-en-' + index).value
+      };
+
+      sendAction({ action: 'edit', index: index, entry: entry }, '編集しました', function() { loadNews(); });
+    }
+
+    // ── 削除 ──
+    function confirmDelete(index) {
+      var area = document.getElementById('edit-area-' + index);
+      area.innerHTML =
+        '<div class="confirm-delete">' +
+          'この投稿を削除しますか？' +
+          '<button class="btn btn-cancel" onclick="cancelEdit(' + index + ')">キャンセル</button>' +
+          '<button class="btn btn-delete" onclick="doDelete(' + index + ')">削除する</button>' +
+        '</div>';
+    }
+
+    function doDelete(index) {
+      sendAction({ action: 'delete', index: index }, '削除しました', function() { loadNews(); });
+    }
+
+    // ── 新規投稿 ──
     document.getElementById('news-form').addEventListener('submit', function(e) {
       e.preventDefault();
-
-      if (!GAS_URL) {
-        showMessage('error', 'GAS_URLが設定されていません。管理者に連絡してください。');
-        return;
-      }
-
       var btn = document.getElementById('submit-btn');
-      btn.disabled = true;
-      btn.textContent = '送信中...';
+      btn.disabled = true; btn.textContent = '送信中...';
 
       var cat = document.getElementById('category').value;
       var payload = {
+        action: 'add',
         date: document.getElementById('date').value,
         category: cat,
         category_en: CATEGORY_EN[cat] || cat,
@@ -223,30 +254,45 @@
         body_en: document.getElementById('body_en').value
       };
 
-      fetch(GAS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-      .then(function() {
-        showMessage('success', 'ニュースを投稿しました。サイトへの反映には数分かかります。');
+      sendAction(payload, '投稿しました', function() {
         document.getElementById('news-form').reset();
-      })
-      .catch(function(err) {
-        showMessage('error', '送信に失敗しました: ' + err.message);
-      })
-      .finally(function() {
-        btn.disabled = false;
-        btn.textContent = '投稿する';
+        loadNews();
+      }, function() {
+        btn.disabled = false; btn.textContent = '投稿する';
       });
     });
+
+    // ── GASへの送信 ──
+    function sendAction(payload, successMsg, onSuccess, onFinally) {
+      fetch(GAS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res.status !== 'ok') throw new Error(res.message);
+        showMessage('success', successMsg + '（反映まで数分かかります）');
+        if (onSuccess) onSuccess();
+      })
+      .catch(function(err) {
+        showMessage('error', '失敗しました: ' + err.message);
+      })
+      .finally(function() {
+        var btn = document.getElementById('submit-btn');
+        btn.disabled = false; btn.textContent = '投稿する';
+        if (onFinally) onFinally();
+      });
+    }
 
     function showMessage(type, text) {
       var el = document.getElementById('message');
       el.className = 'message ' + type;
       el.textContent = text;
     }
+
+    // ── 初期読み込み ──
+    loadNews();
   </script>
 </body>
 </html>

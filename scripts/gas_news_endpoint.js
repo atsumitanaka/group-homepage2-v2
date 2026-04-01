@@ -1,5 +1,5 @@
 /**
- * Google Apps Script: ニュース投稿を受け取り、GitHubのnews.jsonを更新する
+ * Google Apps Script: ニュースの取得・追加・編集・削除を行い、GitHubのnews.jsonを更新する
  *
  * === セットアップ手順 ===
  *
@@ -12,12 +12,39 @@
  *    - 実行するユーザー: 自分
  *    - アクセスできるユーザー: 全員
  * 5. 表示されたURLを admin/index.html の GAS_URL に設定
+ *
+ * ※ コードを更新したら「デプロイを管理」→「新しいバージョン」で再デプロイ
  */
 
+// ── GET: ニュース一覧を返す ──
+function doGet(e) {
+  try {
+    var result = getNewsFromGitHub();
+    return ContentService.createTextOutput(JSON.stringify({ status: "ok", data: result }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// ── POST: 追加・編集・削除 ──
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
-    var result = addNewsToGitHub(data);
+    var action = data.action || "add";
+    var result;
+
+    if (action === "add") {
+      result = addNews(data);
+    } else if (action === "edit") {
+      result = editNews(data.index, data.entry);
+    } else if (action === "delete") {
+      result = deleteNews(data.index);
+    } else {
+      throw new Error("Unknown action: " + action);
+    }
+
     return ContentService.createTextOutput(JSON.stringify({ status: "ok", result: result }))
       .setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
@@ -26,26 +53,46 @@ function doPost(e) {
   }
 }
 
-function addNewsToGitHub(newsItem) {
+// ── GitHub操作の共通関数 ──
+function getGitHubFile() {
   var props = PropertiesService.getScriptProperties();
   var token = props.getProperty("GITHUB_TOKEN");
   var repo = props.getProperty("GITHUB_REPO");
   var path = "data/news.json";
-  var branch = "main";
-
-  // 1. 現在の news.json を取得
-  var getUrl = "https://api.github.com/repos/" + repo + "/contents/" + path + "?ref=" + branch;
-  var getResp = UrlFetchApp.fetch(getUrl, {
-    headers: {
-      Authorization: "Bearer " + token,
-      Accept: "application/vnd.github.v3+json"
-    }
+  var url = "https://api.github.com/repos/" + repo + "/contents/" + path + "?ref=main";
+  var resp = UrlFetchApp.fetch(url, {
+    headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github.v3+json" }
   });
-  var fileInfo = JSON.parse(getResp.getContentText());
-  var currentContent = Utilities.newBlob(Utilities.base64Decode(fileInfo.content)).getDataAsString();
-  var newsList = JSON.parse(currentContent);
+  var info = JSON.parse(resp.getContentText());
+  var content = Utilities.newBlob(Utilities.base64Decode(info.content)).getDataAsString();
+  return { list: JSON.parse(content), sha: info.sha };
+}
 
-  // 2. 新しいニュースを追加
+function commitNewsList(newsList, sha, message) {
+  var props = PropertiesService.getScriptProperties();
+  var token = props.getProperty("GITHUB_TOKEN");
+  var repo = props.getProperty("GITHUB_REPO");
+  var path = "data/news.json";
+  var content = JSON.stringify(newsList, null, 2) + "\n";
+  var encoded = Utilities.base64Encode(Utilities.newBlob(content).getBytes());
+  var url = "https://api.github.com/repos/" + repo + "/contents/" + path;
+  var resp = UrlFetchApp.fetch(url, {
+    method: "put",
+    headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github.v3+json" },
+    contentType: "application/json",
+    payload: JSON.stringify({ message: message, content: encoded, sha: sha, branch: "main" })
+  });
+  return JSON.parse(resp.getContentText()).commit.sha;
+}
+
+// ── 一覧取得 ──
+function getNewsFromGitHub() {
+  return getGitHubFile().list;
+}
+
+// ── 追加 ──
+function addNews(newsItem) {
+  var file = getGitHubFile();
   var entry = {
     date: newsItem.date || "",
     category: newsItem.category || "",
@@ -55,32 +102,32 @@ function addNewsToGitHub(newsItem) {
     body: (newsItem.body || "").replace(/\n/g, "<br>"),
     body_en: (newsItem.body_en || "").replace(/\n/g, "<br>")
   };
-  newsList.unshift(entry);
+  file.list.unshift(entry);
+  file.list.sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
+  return commitNewsList(file.list, file.sha, "ニュースを追加: " + (newsItem.title || "no title"));
+}
 
-  // 日付降順ソート
-  newsList.sort(function (a, b) {
-    return (b.date || "").localeCompare(a.date || "");
-  });
+// ── 編集 ──
+function editNews(index, updatedEntry) {
+  var file = getGitHubFile();
+  if (index < 0 || index >= file.list.length) throw new Error("Invalid index: " + index);
+  file.list[index] = {
+    date: updatedEntry.date || "",
+    category: updatedEntry.category || "",
+    category_en: updatedEntry.category_en || "",
+    title: updatedEntry.title || "",
+    title_en: updatedEntry.title_en || "",
+    body: (updatedEntry.body || "").replace(/\n/g, "<br>"),
+    body_en: (updatedEntry.body_en || "").replace(/\n/g, "<br>")
+  };
+  file.list.sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
+  return commitNewsList(file.list, file.sha, "ニュースを編集: " + (updatedEntry.title || "no title"));
+}
 
-  // 3. コミット
-  var newContent = JSON.stringify(newsList, null, 2) + "\n";
-  var encoded = Utilities.base64Encode(Utilities.newBlob(newContent).getBytes());
-
-  var putUrl = "https://api.github.com/repos/" + repo + "/contents/" + path;
-  var putResp = UrlFetchApp.fetch(putUrl, {
-    method: "put",
-    headers: {
-      Authorization: "Bearer " + token,
-      Accept: "application/vnd.github.v3+json"
-    },
-    contentType: "application/json",
-    payload: JSON.stringify({
-      message: "ニュースを追加: " + (newsItem.title || "no title"),
-      content: encoded,
-      sha: fileInfo.sha,
-      branch: branch
-    })
-  });
-
-  return JSON.parse(putResp.getContentText()).commit.sha;
+// ── 削除 ──
+function deleteNews(index) {
+  var file = getGitHubFile();
+  if (index < 0 || index >= file.list.length) throw new Error("Invalid index: " + index);
+  var removed = file.list.splice(index, 1)[0];
+  return commitNewsList(file.list, file.sha, "ニュースを削除: " + (removed.title || "no title"));
 }
