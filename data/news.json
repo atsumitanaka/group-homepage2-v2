@@ -36,6 +36,15 @@
     "body_en": ""
   },
   {
+    "date": "2026-01-30",
+    "category": "お知らせ",
+    "category_en": "Announcement",
+    "title": "出村雅彦グループリーダーの論文がWelding in the Worldに掲載されました",
+    "title_en": "",
+    "body": "Experimental demonstration of creep life improvement in welded joints through optimized welding conditions<br>著者：Hitoshi Izuno, Masahiko Demura, Kenji Nagata, Daisuke Abe, Keisuke Torigata<br>ジャーナル：Welding in the World<br>巻号：Vol. 70, Issue 4<br>ページ：1423–1439<br>オンライン公開：2026年1月30日<br>DOI：10.1007/s40194-025-02288-9",
+    "body_en": ""
+  },
+  {
     "date": "2025-10-24",
     "category": "お知らせ",
     "category_en": "Announcement",
@@ -97,14 +106,5 @@
     "title_en": "Building machine learning models while keeping data hidden",
     "body": "出村雅彦グループリーダー：6社2国研の産学データ連携で幅広い耐熱材料の長期耐久性を予測。<a href=\"https://www.nims.go.jp/press/2025/03/202503130.html\" target=\"_blank\">詳しくはこちら</a>",
     "body_en": "Group Leader Masahiko Demura: Predicting long-term durability of a wide range of heat-resistant materials through industry-academia data collaboration of 6 companies and 2 national research institutes. <a href=\"https://www.nims.go.jp/press/2025/03/202503130.html\" target=\"_blank\">Learn more</a>"
-  },
-  {
-    "date": "",
-    "category": "",
-    "category_en": "",
-    "title": "出村雅彦グループリーダーの論文がWelding in the Worldに掲載されました",
-    "title_en": "",
-    "body": "Experimental demonstration of creep life improvement in welded joints through optimized welding conditions<br>著者：Hitoshi Izuno, Masahiko Demura, Kenji Nagata, Daisuke Abe, Keisuke Torigata<br>ジャーナル：Welding in the World<br>巻号：Vol. 70, Issue 4<br>ページ：1423–1439<br>オンライン公開：2026年1月30日<br>DOI：10.1007/s40194-025-02288-9",
-    "body_en": ""
   }
 ]
