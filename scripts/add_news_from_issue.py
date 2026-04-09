@@ -62,6 +62,7 @@ def main():
     category_raw = fields.get("カテゴリ", "")
     title_ja = fields.get("タイトル（日本語）", "")
     title_en = fields.get("タイトル（英語）", "")
+    doi = fields.get("DOI", "").strip()
     body_ja = fields.get("本文（日本語）", "")
     body_en = fields.get("本文（英語）", "")
 
@@ -84,6 +85,7 @@ def main():
         "category_en": cat_en,
         "title": title_ja,
         "title_en": title_en,
+        "doi": doi,
         "body": body_ja.replace("\n", "<br>"),
         "body_en": body_en.replace("\n", "<br>"),
     }

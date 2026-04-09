@@ -4,6 +4,23 @@ function detectLang() {
   return location.pathname.includes('-en.html') ? 'en' : 'ja';
 }
 
+// HTMLエスケープ
+function escapeHtml(s) {
+  var d = document.createElement('div');
+  d.textContent = s == null ? '' : s;
+  return d.innerHTML;
+}
+
+// doiが指定されていればタイトルをDOIリンクで囲む
+function buildTitleHtml(item, title) {
+  var safeTitle = escapeHtml(title);
+  if (item.doi) {
+    var safeDoi = escapeHtml(item.doi);
+    return '<a href="https://doi.org/' + safeDoi + '" target="_blank" rel="noopener">' + safeTitle + '</a>';
+  }
+  return safeTitle;
+}
+
 function renderNews(data, lang) {
   const list = document.getElementById('news-list');
   if (!list) return;
@@ -21,10 +38,14 @@ function renderNews(data, lang) {
         '<span class="category">' + category + '</span>' +
         '<span class="date">' + item.date + '</span>' +
       '</div>' +
-      '<h2>' + title + '</h2>' +
+      '<h2>' + buildTitleHtml(item, title) + '</h2>' +
       '<p class="preview">' + body + '</p>';
     card.style.cursor = 'pointer';
     card.addEventListener('click', function () { openModal(index, lang); });
+    // タイトル内のリンククリックではモーダルを開かない
+    card.querySelectorAll('h2 a').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.stopPropagation(); });
+    });
     list.appendChild(card);
     // fade-in-upのアニメーションを発火させる
     requestAnimationFrame(function () { card.classList.add('visible'); });
@@ -39,7 +60,7 @@ function openModal(index, lang) {
   var body = lang === 'en' ? (item.body_en || item.body) : item.body;
 
   document.getElementById('modal-category').textContent = category;
-  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-title').innerHTML = buildTitleHtml(item, title);
   document.getElementById('modal-date').textContent = item.date;
   document.getElementById('modal-content').innerHTML = body;
   document.getElementById('modal').classList.remove('hidden');

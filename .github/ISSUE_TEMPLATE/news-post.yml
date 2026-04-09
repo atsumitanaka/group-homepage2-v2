@@ -41,6 +41,15 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: doi
+    attributes:
+      label: "DOI"
+      description: "論文DOI（例: 10.1016/j.matdes.2026.115584）。指定するとタイトルがDOIリンクになります。論文以外は空欄でOK。"
+      placeholder: "10.1016/j.matdes.2026.115584"
+    validations:
+      required: false
+
   - type: textarea
     id: body_ja
     attributes:
