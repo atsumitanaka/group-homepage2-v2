@@ -4,48 +4,55 @@
     "name_en": "Masahiko Demura",
     "position_ja": "グループリーダー",
     "position_en": "Group Leader",
-    "orcid": "0000-0002-7308-3041"
+    "orcid": "0000-0002-7308-3041",
+    "researchmap_id": "read0003464"
   },
   {
     "name_ja": "石井真史",
     "name_en": "Masashi Ishii",
     "position_ja": "主席研究員",
     "position_en": "Senior Researcher",
-    "orcid": "0000-0003-0357-2832"
+    "orcid": "0000-0003-0357-2832",
+    "researchmap_id": "ishiimasashi"
   },
   {
     "name_ja": "戸田佳明",
     "name_en": "Yoshiaki Toda",
     "position_ja": "主幹研究員",
     "position_en": "Principal Researcher",
-    "orcid": "0000-0002-8343-2890"
+    "orcid": "0000-0002-8343-2890",
+    "researchmap_id": "read0080019"
   },
   {
     "name_ja": "渡邊育夢",
     "name_en": "Ikumu Watanabe",
     "position_ja": "主幹研究員",
     "position_en": "Principal Researcher",
-    "orcid": "0000-0002-7693-1675"
+    "orcid": "0000-0002-7693-1675",
+    "researchmap_id": "ikumu"
   },
   {
     "name_ja": "伊藤海太",
     "name_en": "Kaita Ito",
     "position_ja": "主任研究員",
     "position_en": "Principal Researcher",
-    "orcid": "0000-0002-1438-6982"
+    "orcid": "0000-0002-1438-6982",
+    "researchmap_id": "ito_kaita"
   },
   {
     "name_ja": "桂ゆかり",
     "name_en": "Yukari Katsura",
     "position_ja": "主任研究員",
     "position_en": "Principal Researcher",
-    "orcid": "0000-0002-8905-2995"
+    "orcid": "0000-0002-8905-2995",
+    "researchmap_id": "ykatsura"
   },
   {
     "name_ja": "柿沼洋",
     "name_en": "Hiroshi Kakinuma",
     "position_ja": "客員研究員",
     "position_en": "Visiting Researcher",
-    "orcid": "0000-0001-6944-0803"
+    "orcid": "0000-0001-6944-0803",
+    "researchmap_id": "hiroshikakinuma"
   }
 ]
