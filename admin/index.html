@@ -166,15 +166,23 @@
               <input type="text" id="title_en">
             </div>
             <div class="field">
-              <label>論文タイトル<span class="hint">論文の正式タイトル（英語）。DOIを併せて指定すると自動的にDOIリンクになります</span></label>
+              <label>論文/講演タイトル<span class="hint">論文の正式タイトルまたは講演タイトル。DOIを併せて指定するとDOIリンクになります</span></label>
               <input type="text" id="paper_title" placeholder="Modular metamaterials with deep learning...">
             </div>
             <div class="field">
-              <label>DOI<span class="hint">論文DOI（例: 10.1016/j.matdes.2026.115584）。指定すると論文タイトルがDOIリンクになります</span></label>
+              <label>DOI<span class="hint">論文DOI（例: 10.1016/j.matdes.2026.115584）。論文以外は空欄</span></label>
               <input type="text" id="doi" placeholder="10.1016/j.matdes.2026.115584">
             </div>
             <div class="field">
-              <label>本文（日本語）<span class="hint">リンク: &lt;a href="URL" target="_blank"&gt;テキスト&lt;/a&gt;</span></label>
+              <label>学会名<span class="hint">招待講演の場合に入力。入力すると本文が自動生成されます</span></label>
+              <input type="text" id="event_name" placeholder="XVIII International Conference on Computational Plasticity">
+            </div>
+            <div class="field">
+              <label>発表者<span class="hint">招待講演の場合に入力</span></label>
+              <input type="text" id="presenters" placeholder="Ikumu Watanabe">
+            </div>
+            <div class="field">
+              <label>本文（日本語）<span class="hint">学会名を入力すると自動生成されます。手動入力・追記も可能。リンク: &lt;a href="URL" target="_blank"&gt;テキスト&lt;/a&gt;</span></label>
               <textarea id="body_ja"></textarea>
             </div>
             <div class="field">
@@ -275,6 +283,12 @@
 
     function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 
+    function formatDateJa(iso) {
+      if (!iso) return '';
+      var p = iso.split('-');
+      return parseInt(p[0]) + '年' + parseInt(p[1]) + '月' + parseInt(p[2]) + '日';
+    }
+
     // ── 編集 ──
     function startEdit(index) {
       var item = newsList[index];
@@ -287,7 +301,7 @@
           '<div class="field"><label>カテゴリ</label>' + buildCategorySelect('edit-cat-' + index, item.category) + '</div>' +
           '<div class="field"><label>タイトル（日本語）</label><input type="text" id="edit-title-ja-' + index + '" value="' + esc(item.title) + '"></div>' +
           '<div class="field"><label>タイトル（英語）</label><input type="text" id="edit-title-en-' + index + '" value="' + esc(item.title_en) + '"></div>' +
-          '<div class="field"><label>論文タイトル</label><input type="text" id="edit-paper-title-' + index + '" value="' + esc(item.paper_title) + '" placeholder="Modular metamaterials with deep learning..."></div>' +
+          '<div class="field"><label>論文/講演タイトル</label><input type="text" id="edit-paper-title-' + index + '" value="' + esc(item.paper_title) + '" placeholder="Modular metamaterials with deep learning..."></div>' +
           '<div class="field"><label>DOI</label><input type="text" id="edit-doi-' + index + '" value="' + esc(item.doi) + '" placeholder="10.1016/j.matdes.2026.115584"></div>' +
           '<div class="field"><label>本文（日本語）</label><textarea id="edit-body-ja-' + index + '">' + esc(bodyJa) + '</textarea></div>' +
           '<div class="field"><label>本文（英語）</label><textarea id="edit-body-en-' + index + '">' + esc(bodyEn) + '</textarea></div>' +
@@ -350,16 +364,32 @@
       btn.disabled = true; btn.textContent = '送信中...';
 
       var cat = document.getElementById('category').value;
+      var dateVal = document.getElementById('date').value;
+      var eventName = document.getElementById('event_name').value.trim();
+      var presentersVal = document.getElementById('presenters').value.trim();
+      var manualBody = document.getElementById('body_ja').value;
+
+      // 学会名が入力されていれば招待講演の本文を自動生成
+      var bodyJa = manualBody;
+      if (eventName) {
+        var lines = [];
+        lines.push('学会名：' + eventName);
+        if (dateVal) lines.push('日時：' + formatDateJa(dateVal));
+        if (presentersVal) lines.push('発表者：' + presentersVal);
+        if (manualBody) lines.push(manualBody);
+        bodyJa = lines.join('\n');
+      }
+
       var payload = {
         action: 'add',
-        date: document.getElementById('date').value,
+        date: dateVal,
         category: cat,
         category_en: CATEGORY_EN[cat] || cat,
         title: document.getElementById('title_ja').value,
         title_en: document.getElementById('title_en').value,
         paper_title: document.getElementById('paper_title').value.trim(),
         doi: document.getElementById('doi').value.trim(),
-        body: document.getElementById('body_ja').value,
+        body: bodyJa,
         body_en: document.getElementById('body_en').value
       };
 

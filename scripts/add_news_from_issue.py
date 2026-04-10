@@ -62,8 +62,10 @@ def main():
     category_raw = fields.get("カテゴリ", "")
     title_ja = fields.get("タイトル（日本語）", "")
     title_en = fields.get("タイトル（英語）", "")
-    paper_title = fields.get("論文タイトル", "").strip()
+    paper_title = fields.get("論文/講演タイトル", fields.get("論文タイトル", "")).strip()
     doi = fields.get("DOI", "").strip()
+    event_name = fields.get("学会名", "").strip()
+    presenters = fields.get("発表者", "").strip()
     body_ja = fields.get("本文（日本語）", "")
     body_en = fields.get("本文（英語）", "")
 
@@ -79,6 +81,20 @@ def main():
     if not re.match(r"^\d{4}-\d{2}-\d{2}$", date):
         print(f"ERROR: Invalid date format: {date}")
         sys.exit(1)
+
+    # 学会名が入力されていれば招待講演の本文を自動生成
+    if event_name:
+        lines = []
+        lines.append(f"学会名：{event_name}")
+        if date:
+            parts = date.split("-")
+            date_ja = f"{int(parts[0])}年{int(parts[1])}月{int(parts[2])}日"
+            lines.append(f"日時：{date_ja}")
+        if presenters:
+            lines.append(f"発表者：{presenters}")
+        if body_ja:
+            lines.append(body_ja)
+        body_ja = "\n".join(lines)
 
     new_entry = {
         "date": date,
