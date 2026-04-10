@@ -166,7 +166,11 @@
               <input type="text" id="title_en">
             </div>
             <div class="field">
-              <label>DOI<span class="hint">論文DOI（例: 10.1016/j.matdes.2026.115584）。指定するとタイトルがDOIリンクになります</span></label>
+              <label>論文タイトル<span class="hint">論文の正式タイトル（英語）。DOIを併せて指定すると自動的にDOIリンクになります</span></label>
+              <input type="text" id="paper_title" placeholder="Modular metamaterials with deep learning...">
+            </div>
+            <div class="field">
+              <label>DOI<span class="hint">論文DOI（例: 10.1016/j.matdes.2026.115584）。指定すると論文タイトルがDOIリンクになります</span></label>
               <input type="text" id="doi" placeholder="10.1016/j.matdes.2026.115584">
             </div>
             <div class="field">
@@ -283,6 +287,7 @@
           '<div class="field"><label>カテゴリ</label>' + buildCategorySelect('edit-cat-' + index, item.category) + '</div>' +
           '<div class="field"><label>タイトル（日本語）</label><input type="text" id="edit-title-ja-' + index + '" value="' + esc(item.title) + '"></div>' +
           '<div class="field"><label>タイトル（英語）</label><input type="text" id="edit-title-en-' + index + '" value="' + esc(item.title_en) + '"></div>' +
+          '<div class="field"><label>論文タイトル</label><input type="text" id="edit-paper-title-' + index + '" value="' + esc(item.paper_title) + '" placeholder="Modular metamaterials with deep learning..."></div>' +
           '<div class="field"><label>DOI</label><input type="text" id="edit-doi-' + index + '" value="' + esc(item.doi) + '" placeholder="10.1016/j.matdes.2026.115584"></div>' +
           '<div class="field"><label>本文（日本語）</label><textarea id="edit-body-ja-' + index + '">' + esc(bodyJa) + '</textarea></div>' +
           '<div class="field"><label>本文（英語）</label><textarea id="edit-body-en-' + index + '">' + esc(bodyEn) + '</textarea></div>' +
@@ -314,6 +319,7 @@
         category_en: CATEGORY_EN[cat] || cat,
         title: document.getElementById('edit-title-ja-' + index).value,
         title_en: document.getElementById('edit-title-en-' + index).value,
+        paper_title: document.getElementById('edit-paper-title-' + index).value.trim(),
         doi: document.getElementById('edit-doi-' + index).value.trim(),
         body: document.getElementById('edit-body-ja-' + index).value,
         body_en: document.getElementById('edit-body-en-' + index).value
@@ -351,6 +357,7 @@
         category_en: CATEGORY_EN[cat] || cat,
         title: document.getElementById('title_ja').value,
         title_en: document.getElementById('title_en').value,
+        paper_title: document.getElementById('paper_title').value.trim(),
         doi: document.getElementById('doi').value.trim(),
         body: document.getElementById('body_ja').value,
         body_en: document.getElementById('body_en').value

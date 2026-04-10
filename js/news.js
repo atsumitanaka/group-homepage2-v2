@@ -11,14 +11,18 @@ function escapeHtml(s) {
   return d.innerHTML;
 }
 
-// doiが指定されていればタイトルをDOIリンクで囲む
-function buildTitleHtml(item, title) {
-  var safeTitle = escapeHtml(title);
+// paper_titleがあれば本文の先頭に表示する。doiが指定されていればDOIリンクになる。
+function buildBodyHtml(item, body) {
+  if (!item.paper_title) return body || '';
+  var safePaperTitle = escapeHtml(item.paper_title);
+  var paperTitleHtml;
   if (item.doi) {
     var safeDoi = escapeHtml(item.doi);
-    return '<a href="https://doi.org/' + safeDoi + '" target="_blank" rel="noopener">' + safeTitle + '</a>';
+    paperTitleHtml = '<a href="https://doi.org/' + safeDoi + '" target="_blank" rel="noopener">' + safePaperTitle + '</a>';
+  } else {
+    paperTitleHtml = safePaperTitle;
   }
-  return safeTitle;
+  return '<strong>' + paperTitleHtml + '</strong>' + (body ? '<br>' + body : '');
 }
 
 function renderNews(data, lang) {
@@ -38,12 +42,12 @@ function renderNews(data, lang) {
         '<span class="category">' + category + '</span>' +
         '<span class="date">' + item.date + '</span>' +
       '</div>' +
-      '<h2>' + buildTitleHtml(item, title) + '</h2>' +
-      '<p class="preview">' + body + '</p>';
+      '<h2>' + escapeHtml(title) + '</h2>' +
+      '<p class="preview">' + buildBodyHtml(item, body) + '</p>';
     card.style.cursor = 'pointer';
     card.addEventListener('click', function () { openModal(index, lang); });
-    // タイトル内のリンククリックではモーダルを開かない
-    card.querySelectorAll('h2 a').forEach(function (a) {
+    // 本文内のリンククリックではモーダルを開かない
+    card.querySelectorAll('.preview a').forEach(function (a) {
       a.addEventListener('click', function (e) { e.stopPropagation(); });
     });
     list.appendChild(card);
@@ -60,9 +64,9 @@ function openModal(index, lang) {
   var body = lang === 'en' ? (item.body_en || item.body) : item.body;
 
   document.getElementById('modal-category').textContent = category;
-  document.getElementById('modal-title').innerHTML = buildTitleHtml(item, title);
+  document.getElementById('modal-title').textContent = title;
   document.getElementById('modal-date').textContent = item.date;
-  document.getElementById('modal-content').innerHTML = body;
+  document.getElementById('modal-content').innerHTML = buildBodyHtml(item, body);
   document.getElementById('modal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }

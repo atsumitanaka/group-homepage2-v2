@@ -99,6 +99,7 @@ function addNews(newsItem) {
     category_en: newsItem.category_en || "",
     title: newsItem.title || "",
     title_en: newsItem.title_en || "",
+    paper_title: newsItem.paper_title || "",
     doi: newsItem.doi || "",
     body: (newsItem.body || "").replace(/\n/g, "<br>"),
     body_en: (newsItem.body_en || "").replace(/\n/g, "<br>")
@@ -118,6 +119,7 @@ function editNews(index, updatedEntry) {
     category_en: updatedEntry.category_en || "",
     title: updatedEntry.title || "",
     title_en: updatedEntry.title_en || "",
+    paper_title: updatedEntry.paper_title || "",
     doi: updatedEntry.doi || "",
     body: (updatedEntry.body || "").replace(/\n/g, "<br>"),
     body_en: (updatedEntry.body_en || "").replace(/\n/g, "<br>")

@@ -42,10 +42,19 @@ body:
       required: true
 
   - type: input
+    id: paper_title
+    attributes:
+      label: "論文タイトル"
+      description: "論文の正式タイトル（英語）。DOIを併せて指定すると自動的にDOIリンクになります。論文以外は空欄でOK。"
+      placeholder: "Modular metamaterials with deep learning..."
+    validations:
+      required: false
+
+  - type: input
     id: doi
     attributes:
       label: "DOI"
-      description: "論文DOI（例: 10.1016/j.matdes.2026.115584）。指定するとタイトルがDOIリンクになります。論文以外は空欄でOK。"
+      description: "論文DOI（例: 10.1016/j.matdes.2026.115584）。指定すると論文タイトルがDOIリンクになります。論文以外は空欄でOK。"
       placeholder: "10.1016/j.matdes.2026.115584"
     validations:
       required: false
