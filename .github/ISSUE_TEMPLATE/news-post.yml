@@ -42,6 +42,15 @@ body:
       required: true
 
   - type: input
+    id: url
+    attributes:
+      label: "関連URL"
+      description: "受賞・プレスリリース等のリンク先URL。指定するとタイトルがリンクになります。"
+      placeholder: "https://www.nims.go.jp/press/2025/04/202504150.html"
+    validations:
+      required: false
+
+  - type: input
     id: paper_title
     attributes:
       label: "論文/講演タイトル"

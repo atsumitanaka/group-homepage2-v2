@@ -11,6 +11,15 @@ function escapeHtml(s) {
   return d.innerHTML;
 }
 
+// urlが指定されていればタイトルをリンクで囲む
+function buildTitleHtml(item, title) {
+  var safeTitle = escapeHtml(title);
+  if (item.url) {
+    return '<a href="' + escapeHtml(item.url) + '" target="_blank" rel="noopener">' + safeTitle + '</a>';
+  }
+  return safeTitle;
+}
+
 // paper_titleがあれば本文の先頭に表示する。doiが指定されていればDOIリンクになる。
 function buildBodyHtml(item, body) {
   if (!item.paper_title) return body || '';
@@ -42,12 +51,12 @@ function renderNews(data, lang) {
         '<span class="category">' + category + '</span>' +
         '<span class="date">' + item.date + '</span>' +
       '</div>' +
-      '<h2>' + escapeHtml(title) + '</h2>' +
+      '<h2>' + buildTitleHtml(item, title) + '</h2>' +
       '<p class="preview">' + buildBodyHtml(item, body) + '</p>';
     card.style.cursor = 'pointer';
     card.addEventListener('click', function () { openModal(index, lang); });
-    // 本文内のリンククリックではモーダルを開かない
-    card.querySelectorAll('.preview a').forEach(function (a) {
+    // カード内のリンククリックではモーダルを開かない
+    card.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function (e) { e.stopPropagation(); });
     });
     list.appendChild(card);
@@ -64,7 +73,7 @@ function openModal(index, lang) {
   var body = lang === 'en' ? (item.body_en || item.body) : item.body;
 
   document.getElementById('modal-category').textContent = category;
-  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-title').innerHTML = buildTitleHtml(item, title);
   document.getElementById('modal-date').textContent = item.date;
   document.getElementById('modal-content').innerHTML = buildBodyHtml(item, body);
   document.getElementById('modal').classList.remove('hidden');

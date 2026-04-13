@@ -62,6 +62,7 @@ def main():
     category_raw = fields.get("カテゴリ", "")
     title_ja = fields.get("タイトル（日本語）", "")
     title_en = fields.get("タイトル（英語）", "")
+    url = fields.get("関連URL", "").strip()
     paper_title = fields.get("論文/講演タイトル", fields.get("論文タイトル", "")).strip()
     doi = fields.get("DOI", "").strip()
     event_name = fields.get("学会名", "").strip()
@@ -102,6 +103,7 @@ def main():
         "category_en": cat_en,
         "title": title_ja,
         "title_en": title_en,
+        "url": url,
         "paper_title": paper_title,
         "doi": doi,
         "body": body_ja.replace("\n", "<br>"),
