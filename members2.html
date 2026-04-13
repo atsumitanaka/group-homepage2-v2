@@ -9,11 +9,11 @@
 <body>
   <header class="navbar">
     <div class="navbar-inner">
-      <div class="navbar-logos">
-        <a href="https://www.nims.go.jp/" target="_blank" rel="noopener"><img src="images/logo_nims_20190425mark.png" alt="NIMS"></a>
-        <a href="https://www.nims.go.jp/cbrm/" target="_blank" rel="noopener"><img src="images/cbrm_logo_tate.png" alt="CBRM"></a>
-      </div>
       <a href="index.html" class="navbar-brand">
+        <div class="navbar-logos">
+          <img src="images/logo_nims_20190425mark.png" alt="NIMS" class="logo-link" onclick="event.preventDefault();event.stopPropagation();window.open(&#39;https://www.nims.go.jp/&#39;,&#39;_blank&#39;)" style="cursor:pointer">
+          <img src="images/cbrm_logo_tate.png" alt="CBRM" class="logo-link" onclick="event.preventDefault();event.stopPropagation();window.open(&#39;https://www.nims.go.jp/cbrm/&#39;,&#39;_blank&#39;)" style="cursor:pointer">
+        </div>
         <span class="navbar-brand-text"><span>M</span>aterials <span>M</span>odeling <span>G</span><span class="group-full">roup</span><span class="group-short">r.</span></span>
       </a>
       <nav class="nav-links">
