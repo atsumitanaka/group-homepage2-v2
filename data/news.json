@@ -193,6 +193,15 @@
   },
   {
     "date": "2025-04-15",
+    "category": "お知らせ",
+    "category_en": "Announcement",
+    "title": "石井真史主席研究員がMLXN 2025: Machine Learning for X-ray and Neutron Scienceで招待講演を行いました",
+    "title_en": "",
+    "body": "講演タイトル：MDR XAFS DB: X-ray absorption data integration for meta-spectral analysis<br>学会名：MLXN 2025: Machine Learning for X-ray and Neutron Science<br>日時：2025年4月15日 - 2025年4月16日<br>発表者：ISHII, Masashi",
+    "body_en": ""
+  },
+  {
+    "date": "2025-04-15",
     "category": "プレスリリース",
     "category_en": "Press Release",
     "title": "新物質を見つけるための地図を機械学習で開発して公開",
