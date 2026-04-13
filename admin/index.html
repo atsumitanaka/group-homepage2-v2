@@ -51,6 +51,10 @@
     .message.error { display: block; background: #fbe9e7; color: #c62828; border: 1px solid #ef9a9a; }
     .back-link { display: inline-block; margin-top: 1rem; color: #888; font-size: 0.8rem; text-decoration: none; }
     .back-link:hover { color: #c83c2d; }
+    /* フィルタ */
+    .filters { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.8rem; flex-wrap: wrap; }
+    .filters select { padding: 0.3rem 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.78rem; font-family: inherit; }
+    .filters select:focus { outline: none; border-color: #c83c2d; }
     /* 投稿一覧 */
     .news-item { border: 1px solid #eee; border-radius: 6px; padding: 0.8rem; margin-bottom: 0.6rem; transition: box-shadow 0.2s; overflow: hidden; }
     .news-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
@@ -131,6 +135,15 @@
       <div class="col-list">
         <div class="card">
           <h2>投稿一覧</h2>
+          <div class="filters">
+            <select id="filter-year" onchange="renderList()">
+              <option value="">すべての年</option>
+            </select>
+            <select id="filter-category" onchange="renderList()">
+              <option value="">すべてのカテゴリ</option>
+            </select>
+            <span id="filter-count" style="font-size:0.75rem;color:#999;margin-left:0.3rem;"></span>
+          </div>
           <div id="news-list">
             <p class="loading">読み込み中...</p>
           </div>
@@ -252,6 +265,7 @@
         .then(function(res) {
           if (res.status !== 'ok') throw new Error(res.message);
           newsList = res.data;
+          buildFilterOptions();
           renderList();
         })
         .catch(function(err) {
@@ -259,11 +273,43 @@
         });
     }
 
+    function buildFilterOptions() {
+      var years = {};
+      var categories = {};
+      newsList.forEach(function(item) {
+        var y = (item.date || '').substring(0, 4);
+        if (y) years[y] = true;
+        var c = item.category || '';
+        if (c) categories[c] = true;
+      });
+      var yearSel = document.getElementById('filter-year');
+      var curYear = yearSel.value;
+      yearSel.innerHTML = '<option value="">すべての年</option>';
+      Object.keys(years).sort().reverse().forEach(function(y) {
+        yearSel.innerHTML += '<option value="' + y + '"' + (y === curYear ? ' selected' : '') + '>' + y + '年</option>';
+      });
+      var catSel = document.getElementById('filter-category');
+      var curCat = catSel.value;
+      catSel.innerHTML = '<option value="">すべてのカテゴリ</option>';
+      Object.keys(categories).sort().forEach(function(c) {
+        catSel.innerHTML += '<option value="' + esc(c) + '"' + (c === curCat ? ' selected' : '') + '>' + esc(c) + '</option>';
+      });
+    }
+
     function renderList() {
       var listEl = document.getElementById('news-list');
       if (!newsList.length) { listEl.innerHTML = '<p class="loading">ニュースはありません</p>'; return; }
+
+      var filterYear = document.getElementById('filter-year').value;
+      var filterCat = document.getElementById('filter-category').value;
+
       listEl.innerHTML = '';
+      var shown = 0;
       newsList.forEach(function(item, i) {
+        if (filterYear && !(item.date || '').startsWith(filterYear)) return;
+        if (filterCat && item.category !== filterCat) return;
+        shown++;
+
         var div = document.createElement('div');
         div.className = 'news-item';
         div.id = 'news-item-' + i;
@@ -283,6 +329,9 @@
           '<div id="edit-area-' + i + '"></div>';
         listEl.appendChild(div);
       });
+
+      document.getElementById('filter-count').textContent = shown + ' / ' + newsList.length + '件';
+      if (!shown) listEl.innerHTML = '<p class="loading">該当するニュースはありません</p>';
     }
 
     function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
