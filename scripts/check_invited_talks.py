@@ -22,16 +22,20 @@ KNOWN_TALKS_PATH = DATA_DIR / "known_talk_ids.json"
 
 SAMURAI_BASE = "https://samurai.nims.go.jp"
 
-# GAS_URL は環境変数で上書き可能（GitHub Secretsから渡す想定）
 DEFAULT_GAS_URL = (
     "https://script.google.com/macros/s/"
     "AKfycbx_u67JnXKn5Fb3tcD6fQyn1as28Im6gcgdK7Mb9UAD6V3jCS2-Qn7tJYK14P9UN6qB/exec"
 )
 GAS_URL = os.environ.get("GAS_URL", DEFAULT_GAS_URL)
 
-# 検索対象の年（2025年度 = 2025年）
 LOOKBACK_YEARS = 1
-POST_DELAY = 10  # GAS経由のコミットSHA競合を避けるため
+POST_DELAY = 10
+
+MONTH_MAP = {
+    "January": 1, "February": 2, "March": 3, "April": 4,
+    "May": 5, "June": 6, "July": 7, "August": 8,
+    "September": 9, "October": 10, "November": 11, "December": 12,
+}
 
 
 def load_json(path):
@@ -45,18 +49,21 @@ def save_json(path, data):
     )
 
 
-# ── SAMURAI HTML パース ──
+def _strip_html(s):
+    text = re.sub(r"<[^>]+>", "", s).strip()
+    return html_mod.unescape(text)
 
-def fetch_presentations_html(samurai_id):
-    """SAMURAIの研究業績ページからHTMLを取得する"""
-    url = f"{SAMURAI_BASE}/profiles/{samurai_id}/publications?locale=en"
+
+# ── SAMURAI HTML パース（一覧ページ） ──
+
+def fetch_html(url):
     req = urllib.request.Request(url, headers={"User-Agent": "GroupHomepage/1.0"})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return resp.read().decode("utf-8")
 
 
 def parse_invited_presentations(html, min_year):
-    """HTMLのプレゼンテーションセクションから招待講演を抽出する"""
+    """研究業績ページのHTMLから招待講演を抽出する"""
     anchor = html.find('<a name="presentation">')
     if anchor < 0:
         return []
@@ -105,15 +112,62 @@ def parse_invited_presentations(html, min_year):
     return results
 
 
-def _strip_html(s):
-    text = re.sub(r"<[^>]+>", "", s).strip()
-    return html_mod.unescape(text)
+# ── SAMURAI 個別ページから日付取得 ──
+
+def fetch_presentation_date(talk_id):
+    """個別プレゼンテーションページから開催日を取得する。
+    返り値: (date_iso, date_display_ja)
+    """
+    url = f"{SAMURAI_BASE}/presentations/{talk_id}?locale=en"
+    try:
+        html = fetch_html(url)
+    except Exception:
+        return None, None
+
+    # パターン1: "September 02, 2025-September 05, 2025"
+    month_names = "|".join(MONTH_MAP.keys())
+    pattern_en = (
+        rf"({month_names})\s+(\d{{1,2}}),\s+(\d{{4}})"
+        rf"(?:\s*-\s*({month_names})\s+(\d{{1,2}}),\s+(\d{{4}}))?"
+    )
+    match = re.search(pattern_en, html)
+    if match:
+        m1, d1, y1 = MONTH_MAP[match.group(1)], int(match.group(2)), int(match.group(3))
+        date_iso = f"{y1:04d}-{m1:02d}-{d1:02d}"
+        date_ja = f"{y1}年{m1}月{d1}日"
+        if match.group(4):
+            m2, d2, y2 = MONTH_MAP[match.group(4)], int(match.group(5)), int(match.group(6))
+            date_ja += f" - {y2}年{m2}月{d2}日"
+        return date_iso, date_ja
+
+    # パターン2: "2025-07-18" (YYYY-MM-DD)
+    match_iso = re.search(
+        r"(\d{4})-(\d{2})-(\d{2})(?:\s*-\s*(\d{4})-(\d{2})-(\d{2}))?\.?\s+.*?Invited",
+        html,
+    )
+    if match_iso:
+        y1, m1, d1 = int(match_iso.group(1)), int(match_iso.group(2)), int(match_iso.group(3))
+        date_iso = f"{y1:04d}-{m1:02d}-{d1:02d}"
+        date_ja = f"{y1}年{m1}月{d1}日"
+        if match_iso.group(4):
+            y2, m2, d2 = int(match_iso.group(4)), int(match_iso.group(5)), int(match_iso.group(6))
+            date_ja += f" - {y2}年{m2}月{d2}日"
+        return date_iso, date_ja
+
+    # パターン3: "2025-07-18" (Invitedと無関係でも本文中のISO日付)
+    match_simple = re.search(r'\.?\s+(\d{4})-(\d{2})-(\d{2})\.?\s', html)
+    if match_simple:
+        y1, m1, d1 = int(match_simple.group(1)), int(match_simple.group(2)), int(match_simple.group(3))
+        date_iso = f"{y1:04d}-{m1:02d}-{d1:02d}"
+        date_ja = f"{y1}年{m1}月{d1}日"
+        return date_iso, date_ja
+
+    return None, None
 
 
 # ── GASへの投稿 ──
 
 def post_to_gas(entry):
-    """GASエンドポイント経由でnews.jsonにエントリを追加する"""
     payload = {
         "action": "add",
         "date": entry["date"],
@@ -129,8 +183,7 @@ def post_to_gas(entry):
     }
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
-        GAS_URL,
-        data=data,
+        GAS_URL, data=data,
         headers={"Content-Type": "text/plain"},
         method="POST",
     )
@@ -143,24 +196,28 @@ def post_to_gas(entry):
 
 # ── ニュースエントリ生成 ──
 
-def build_news_entry(researcher, talk):
+def build_news_entry(researcher, talk, date_iso, date_ja):
     """招待講演情報からニュースエントリを生成する"""
-    year = talk["year"]
     event = talk["event"]
     title = talk["title"]
     authors = talk["authors"]
 
-    date_iso = f"{year}-01-01"
-    date_ja = f"{year}年"
+    if not date_iso:
+        date_iso = f"{talk['year']}-01-01"
+    if not date_ja:
+        date_ja = f"{talk['year']}年"
 
-    today_year = datetime.now().year
-    verb = "行います" if year > today_year else "行いました"
+    today = datetime.now().strftime("%Y-%m-%d")
+    verb = "行います" if date_iso > today else "行いました"
     news_title = (
         f"{researcher['name_ja']}{researcher['position_ja']}が"
         f"{event}で招待講演を{verb}"
     )
 
+    # 本文：講演タイトルを先頭に
     body_lines = []
+    if title:
+        body_lines.append(f"講演タイトル：{title}")
     if event:
         body_lines.append(f"学会名：{event}")
     if date_ja:
@@ -175,7 +232,7 @@ def build_news_entry(researcher, talk):
         "title": news_title,
         "title_en": "",
         "url": "",
-        "paper_title": title,
+        "paper_title": "",
         "doi": "",
         "body": "\n".join(body_lines),
         "body_en": "",
@@ -188,10 +245,8 @@ def main():
 
     min_year = datetime.now().year - LOOKBACK_YEARS
     print(f"Checking invited talks from SAMURAI (year >= {min_year})")
-    print(f"Posting via GAS: {GAS_URL[:60]}...")
 
-    new_entries = []
-    new_ids = []
+    new_talks = []
 
     for researcher in researchers:
         samurai_id = researcher.get("samurai_id", "")
@@ -201,7 +256,9 @@ def main():
         print(f"\n{researcher['name_en']} ({samurai_id})")
 
         try:
-            html = fetch_presentations_html(samurai_id)
+            html = fetch_html(
+                f"{SAMURAI_BASE}/profiles/{samurai_id}/publications?locale=en"
+            )
         except Exception as e:
             print(f"  ERROR fetching: {e}")
             continue
@@ -210,43 +267,47 @@ def main():
 
         for talk in talks:
             talk_id = talk["id"]
-            if not talk_id:
-                continue
-            if talk_id in known_ids:
-                print(f"  Skip (known): {talk['title'][:50]}...")
+            if not talk_id or talk_id in known_ids:
+                if talk_id in known_ids:
+                    print(f"  Skip (known): {talk['title'][:50]}...")
                 continue
 
-            entry = build_news_entry(researcher, talk)
-            new_entries.append((entry, talk_id))
+            # 個別ページから日付を取得
+            date_iso, date_ja = fetch_presentation_date(talk_id)
+            if date_iso:
+                print(f"  NEW: {talk['title'][:50]}... ({date_ja})")
+            else:
+                print(f"  NEW: {talk['title'][:50]}... (date unknown)")
+
+            new_talks.append((researcher, talk, date_iso, date_ja, talk_id))
             known_ids.add(talk_id)
-
-            print(f"  NEW: {talk['title'][:60]}...")
+            time.sleep(1)
 
         time.sleep(1)
 
-    if not new_entries:
+    if not new_talks:
         print("\nNo new invited talks found.")
         return
 
-    # GAS経由で投稿（SHA競合を避けるため逐次送信）
+    # GAS経由で投稿
     posted_ids = []
-    for i, (entry, talk_id) in enumerate(new_entries):
+    for i, (researcher, talk, date_iso, date_ja, talk_id) in enumerate(new_talks):
+        entry = build_news_entry(researcher, talk, date_iso, date_ja)
         try:
-            print(f"\nPosting [{i+1}/{len(new_entries)}]: {entry['paper_title'][:50]}...")
+            print(f"\nPosting [{i+1}/{len(new_talks)}]: {talk['title'][:50]}...")
             post_to_gas(entry)
             posted_ids.append(talk_id)
             print(f"  OK")
         except Exception as e:
             print(f"  ERROR posting: {e}")
 
-        if i < len(new_entries) - 1:
+        if i < len(new_talks) - 1:
             time.sleep(POST_DELAY)
 
-    # 投稿成功分のIDを既知リストに保存
     all_ids = sorted(set(load_json(KNOWN_TALKS_PATH)) | set(posted_ids))
     save_json(KNOWN_TALKS_PATH, all_ids)
 
-    print(f"\nPosted {len(posted_ids)}/{len(new_entries)} invited talk(s) via Admin")
+    print(f"\nPosted {len(posted_ids)}/{len(new_talks)} invited talk(s) via Admin")
 
 
 if __name__ == "__main__":
