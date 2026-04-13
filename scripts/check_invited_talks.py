@@ -5,6 +5,7 @@ News Admin（GASエンドポイント）経由でnews.jsonに追加するスク�
 GitHub Actionsのcronで定期実行される。
 """
 
+import html as html_mod
 import json
 import os
 import re
@@ -105,7 +106,8 @@ def parse_invited_presentations(html, min_year):
 
 
 def _strip_html(s):
-    return re.sub(r"<[^>]+>", "", s).strip()
+    text = re.sub(r"<[^>]+>", "", s).strip()
+    return html_mod.unescape(text)
 
 
 # ── GASへの投稿 ──
