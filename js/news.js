@@ -34,12 +34,48 @@ function buildBodyHtml(item, body) {
   return '<strong>' + paperTitleHtml + '</strong>' + (body ? '<br>' + body : '');
 }
 
+var currentYear = '';
+
+function buildYearTabs(data, lang) {
+  var tabsEl = document.getElementById('news-year-tabs');
+  if (!tabsEl) return;
+
+  // 年を収集（降順）
+  var yearsSet = {};
+  data.forEach(function (item) {
+    var y = (item.date || '').substring(0, 4);
+    if (y) yearsSet[y] = true;
+  });
+  var years = Object.keys(yearsSet).sort().reverse();
+  if (!years.length) return;
+
+  // デフォルトは最新年
+  if (!currentYear || !yearsSet[currentYear]) currentYear = years[0];
+
+  tabsEl.innerHTML = '';
+  years.forEach(function (y) {
+    var tab = document.createElement('span');
+    tab.className = 'news-year-tab' + (y === currentYear ? ' active' : '');
+    tab.textContent = y;
+    tab.addEventListener('click', function () {
+      currentYear = y;
+      buildYearTabs(data, lang);
+      renderNews(data, lang);
+    });
+    tabsEl.appendChild(tab);
+  });
+}
+
 function renderNews(data, lang) {
   const list = document.getElementById('news-list');
   if (!list) return;
   list.innerHTML = '';
 
   data.forEach(function (item, index) {
+    // 年フィルタ
+    var y = (item.date || '').substring(0, 4);
+    if (currentYear && y !== currentYear) return;
+
     const category = lang === 'en' ? (item.category_en || item.category) : item.category;
     const title = lang === 'en' ? (item.title_en || item.title) : item.title;
     const body = lang === 'en' ? (item.body_en || item.body) : item.body;
@@ -103,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(function (data) {
       newsData = data;
+      buildYearTabs(data, lang);
       renderNews(data, lang);
     })
     .catch(function (err) {

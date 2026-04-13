@@ -768,6 +768,35 @@ img {
 /* ========================================
    News List (news.html)
    ======================================== */
+.news-year-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e0e0e0;
+  flex-wrap: wrap;
+}
+
+.news-year-tab {
+  padding: 0.6rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #888;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.news-year-tab:hover {
+  color: #333;
+}
+
+.news-year-tab.active {
+  color: #c83c2d;
+  border-bottom-color: #c83c2d;
+  font-weight: 600;
+}
+
 .news-list {
   display: flex;
   flex-direction: column;
